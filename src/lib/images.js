@@ -4,7 +4,6 @@
  * Vite собирает всё, что лежит в src/assets/images, на этапе сборки.
  * Файл ищется по имени без расширения, поэтому можно положить
  * youtube.webp, youtube.jpg или youtube.png — код менять не нужно.
- * Если файла нет, компонент просто покажет нарисованный фон.
  */
 const modules = import.meta.glob('../assets/images/**/*.{webp,avif,png,jpg,jpeg,svg}', {
   eager: true,
@@ -12,7 +11,7 @@ const modules = import.meta.glob('../assets/images/**/*.{webp,avif,png,jpg,jpeg,
   import: 'default',
 })
 
-/** { 'youtube': '/assets/youtube-a1b2.webp', 'stickers/youtube': '...' } */
+/** { 'youtube': '/assets/youtube-a1b2.webp', 'avatar': '...' } */
 const registry = Object.entries(modules).reduce((acc, [path, url]) => {
   const key = path.replace(/^.*\/assets\/images\//, '').replace(/\.[^./]+$/, '')
   acc[key] = url
@@ -20,7 +19,4 @@ const registry = Object.entries(modules).reduce((acc, [path, url]) => {
 }, {})
 
 /** Фон карточки или аватар: getImage('youtube') */
-export const getImage = (name) => (name ? registry[name] ?? null : null)
-
-/** Мини-стикер: getSticker('youtube') -> stickers/youtube.png */
-export const getSticker = (name) => (name ? registry[`stickers/${name}`] ?? null : null)
+export const getImage = (name) => (name ? (registry[name] ?? null) : null)

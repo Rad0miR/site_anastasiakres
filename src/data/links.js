@@ -3,78 +3,53 @@
  *
  *  url      — ссылка (меняй свободно)
  *  image    — имя файла в src/assets/images БЕЗ расширения (youtube -> youtube.webp)
- *  sticker  — имя файла в src/assets/images/stickers БЕЗ расширения
- *  theme    — атмосфера фона: apartment | lab | desk | ocean | city | moodboard
- *  featured — true делает карточку широкой (главной) на десктопе
+ *  subtitle — массив строк: каждая строка выводится с новой строки
+ *  badge    — розовая плашка в углу карточки, если нужна
  *
  * Порядок массива = порядок карточек на странице.
  */
 export const links = [
   {
-    id: 'youtube',
-    platform: 'YouTube',
-    handle: '@anastasiakress',
-    title: 'Тайны нашего мира',
-    subtitle: 'Космос · Океан · Наука · История',
-    url: 'https://youtube.com/@anastasiakress?si=6TS7uNmvTJfB7V6K',
-    image: 'youtube',
-    sticker: 'youtube',
-    theme: 'ocean',
-    featured: true,
-  },
-  {
     id: 'instagram',
     platform: 'Instagram',
-    handle: '@kres.anastasia',
-    title: 'Моя жизнь',
-    subtitle: 'Эстетика · Красивые моменты',
+    subtitle: ['Мой личный блог'],
     url: 'https://www.instagram.com/kres.anastasia?igsh=MTI3ZTM4dGs4OHRlaw%3D%3D&utm_source=qr',
     image: 'instagram',
-    sticker: 'instagram',
-    theme: 'apartment',
   },
   {
     id: 'instagram-ai',
     platform: 'Instagram AI',
-    handle: '@kres.ai',
-    title: 'AI Creator',
-    subtitle: 'Нейросети · Эксперименты',
+    subtitle: ['AI-творчество', 'и вдохновение'],
     url: 'https://www.instagram.com/kres.ai?igsh=MTc1eWV5dmVhb2c5',
     image: 'instagram-ai',
-    sticker: 'instagram-ai',
-    theme: 'lab',
   },
   {
     id: 'threads',
     platform: 'Threads',
-    handle: '@kres.anastasia',
-    title: 'Мысли и идеи',
-    subtitle: 'Личный блог',
+    subtitle: ['Мысли, идеи', 'и ежедневные заметки'],
     url: 'https://www.threads.com/@kres.anastasia?igshid=NTc4MTIwNjQ2YQ==',
     image: 'threads',
-    sticker: 'threads',
-    theme: 'desk',
+  },
+  {
+    id: 'youtube',
+    platform: 'YouTube',
+    subtitle: ['Тайны мира,', 'науки и океана'],
+    url: 'https://youtube.com/@anastasiakress?si=6TS7uNmvTJfB7V6K',
+    image: 'youtube',
+    badge: 'Главная',
   },
   {
     id: 'tiktok',
     platform: 'TikTok',
-    handle: '@anastasiakress',
-    title: 'Каждый день',
-    subtitle: 'Жизнь · Развлечения',
+    subtitle: ['Лайф-контент', 'и развлечения'],
     url: 'https://www.tiktok.com/@anastasiakress?_r=1&_t=ZG-98ZeTli0L6v',
     image: 'tiktok',
-    sticker: 'tiktok',
-    theme: 'city',
   },
   {
     id: 'pinterest',
     platform: 'Pinterest',
-    handle: 'Nastya Kres',
-    title: 'Вдохновение',
-    subtitle: 'Идеи · Дизайн · Интерьер',
+    subtitle: ['Идеи, вдохновение', 'и эстетика'],
     url: 'https://pin.it/4t002oJJq',
     image: 'pinterest',
-    sticker: 'pinterest',
-    theme: 'moodboard',
   },
 ]

@@ -5,20 +5,19 @@ import { textUp } from '../lib/motion'
 export default function Footer() {
   return (
     <motion.footer
-      initial="hidden"
-      animate="show"
       variants={textUp}
-      transition={{ delay: 1.1 }}
-      className="pb-14 pt-16 text-center sm:pb-20 sm:pt-20"
+      className="relative mt-8 shrink-0 pb-6 sm:mt-10 lg:mt-3 lg:flex lg:items-end lg:justify-between lg:gap-8 lg:pb-0"
     >
-      <div className="mx-auto h-px w-16 hairline" />
-
-      <p className="mt-7 text-[13px] font-light uppercase tracking-wordmark text-graphite/50">
-        <span className="ml-[0.34em] inline-block">{profile.wordmark}</span>
+      <p className="font-script text-[19px] leading-[1.7] text-rose-300/85 sm:text-[22px] lg:text-[17px] lg:leading-[1.5] 2xl:text-[19px]">
+        {profile.thanks.map((line) => (
+          <span key={line} className="block">
+            {line}
+          </span>
+        ))}
       </p>
 
-      <p className="mt-2.5 text-[11px] font-light tracking-wide text-graphite/35">
-        © {new Date().getFullYear()} {profile.footnote}
+      <p className="mt-4 text-center text-[11.5px] font-light text-white/45 sm:mt-5 sm:text-[12.5px] lg:mt-0 lg:text-right lg:text-[11.5px]">
+        © {new Date().getFullYear()} {profile.copyright}
       </p>
     </motion.footer>
   )

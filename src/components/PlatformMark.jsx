@@ -1,23 +1,27 @@
 import { memo } from 'react'
 
 /**
- * Монохромные знаки платформ. Одна линия, одна толщина —
- * поэтому шесть разных логотипов выглядят как один набор.
+ * Знаки платформ в том же виде, что на референсе: Instagram и Threads —
+ * контурные, YouTube, TikTok и Pinterest — залитые. Все берут цвет
+ * у родителя через currentColor, поэтому набор выглядит единым.
  */
 
 const stroke = {
   fill: 'none',
   stroke: 'currentColor',
-  strokeWidth: 1.6,
+  strokeWidth: 1.7,
   strokeLinecap: 'round',
   strokeLinejoin: 'round',
 }
 
+/** Тёмный контрцвет внутри залитых знаков — под фон карточки. */
+const VOID = '#120C10'
+
 const InstagramGlyph = () => (
   <>
-    <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5.2" {...stroke} />
-    <circle cx="12" cy="12" r="4.1" {...stroke} />
-    <circle cx="17.1" cy="6.9" r="1.15" fill="currentColor" />
+    <rect x="3" y="3" width="18" height="18" rx="5.4" {...stroke} />
+    <circle cx="12" cy="12" r="4.2" {...stroke} />
+    <circle cx="17.2" cy="6.8" r="1.2" fill="currentColor" />
   </>
 )
 
@@ -27,7 +31,7 @@ const MARKS = {
   'instagram-ai': (
     <>
       <InstagramGlyph />
-      <path d="M19.6 15.4l.55 1.5 1.5.55-1.5.55-.55 1.5-.55-1.5-1.5-.55 1.5-.55z" fill="currentColor" />
+      <path d="M19.4 14.9l.62 1.69 1.69.62-1.69.62-.62 1.69-.62-1.69-1.69-.62 1.69-.62z" fill="currentColor" />
     </>
   ),
 
@@ -43,25 +47,26 @@ const MARKS = {
 
   youtube: (
     <>
-      <rect x="2.6" y="5.4" width="18.8" height="13.2" rx="4.2" {...stroke} />
-      <path d="M10.4 9.4l5 2.6-5 2.6z" fill="currentColor" />
+      <rect x="1.4" y="4.9" width="21.2" height="14.2" rx="4.9" fill="currentColor" />
+      <path d="M10.1 8.9l5.8 3.1-5.8 3.1z" fill={VOID} />
     </>
   ),
 
   tiktok: (
-    <>
-      <path d="M14.1 3.5v10.2a3.9 3.9 0 1 1-3.9-3.9" {...stroke} />
-      <path d="M14.1 3.5c.5 2.6 2.4 4.2 5 4.4" {...stroke} />
-    </>
+    <path
+      d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.82-2.47V9.66a5.7 5.7 0 1 0 4.91 5.64V8.9a7.35 7.35 0 0 0 4.29 1.37V7.18a4.28 4.28 0 0 1-3.23-1.36z"
+      fill="currentColor"
+    />
   ),
 
   pinterest: (
     <>
-      <circle cx="12" cy="12" r="9" {...stroke} />
-      <path d="M10 18.6l2.3-9.2" {...stroke} />
+      <circle cx="12" cy="12" r="10.2" fill="currentColor" />
       <path
-        d="M9.7 12.7c-.3-.6-.5-1.3-.5-2 0-2.3 1.8-4.1 4.1-4.1 2.1 0 3.6 1.4 3.6 3.4 0 2.3-1.3 4.1-3 4.1-1 0-1.7-.8-1.5-1.7"
-        {...stroke}
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M9.6 6.2h3.75c2.1 0 3.5 1.28 3.5 3.2 0 2-1.45 3.32-3.72 3.32h-1.5v5.08H9.6V6.2zm2.03 1.83v2.92h1.4c.98 0 1.55-.53 1.55-1.46 0-.94-.57-1.46-1.55-1.46h-1.4z"
+        fill={VOID}
       />
     </>
   ),

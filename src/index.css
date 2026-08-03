@@ -3,18 +3,29 @@
 @tailwind utilities;
 
 /* ------------------------------------------------------------------ *
- *  Tokens
+ *  Токены — сняты с референса
  * ------------------------------------------------------------------ */
 :root {
-  --ink: #0c0c0f;
-  --graphite: #17171c;
-  --pearl: #f8f6f7;
-  --rose-100: #f9e6ea;
-  --rose-200: #f3d2da;
-  --rose-300: #ebb9c4;
-  --rose-400: #dc98a8;
+  --night: #060407;
+  --night-soft: #0b080c;
+  --rose-100: #fbd9dc;
+  --rose-200: #f3bec3;
+  --rose-300: #efa9b2;
+  --rose-500: #c8788a;
 
   --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Затемнение под текстом карточки: слева почти чёрное, справа прозрачное */
+  --card-scrim: linear-gradient(
+      95deg,
+      rgba(6, 4, 7, 0.95) 0%,
+      rgba(6, 4, 7, 0.9) 24%,
+      rgba(6, 4, 7, 0.66) 43%,
+      rgba(6, 4, 7, 0.28) 61%,
+      rgba(6, 4, 7, 0.06) 78%,
+      rgba(6, 4, 7, 0) 92%
+    ),
+    linear-gradient(180deg, rgba(6, 4, 7, 0.34) 0%, rgba(6, 4, 7, 0) 26%, rgba(6, 4, 7, 0) 62%, rgba(6, 4, 7, 0.5) 100%);
 }
 
 @layer base {
@@ -27,27 +38,24 @@
   }
 
   body {
-    @apply bg-pearl text-ink font-sans antialiased;
-    font-feature-settings: 'ss01', 'cv11';
+    @apply bg-night font-sans text-white antialiased;
     overflow-x: hidden;
   }
 
   ::selection {
-    background: var(--rose-200);
-    color: var(--ink);
+    background: var(--rose-300);
+    color: var(--night);
   }
 
-  /* Тонкий скроллбар в тон палитре */
   ::-webkit-scrollbar {
-    width: 10px;
+    width: 9px;
   }
   ::-webkit-scrollbar-track {
-    background: transparent;
+    background: var(--night);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(200, 124, 141, 0.28);
+    background: rgba(239, 169, 178, 0.26);
     border-radius: 999px;
-    border: 3px solid var(--pearl);
   }
 }
 
@@ -55,60 +63,53 @@
  *  Компоненты
  * ------------------------------------------------------------------ */
 @layer components {
-  .glass-chip {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+  /* Стеклянная пилюля: «Про меня», «Перейти» */
+  .pill-glass {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(239, 169, 178, 0.42);
+    backdrop-filter: blur(12px) saturate(140%);
+    -webkit-backdrop-filter: blur(12px) saturate(140%);
   }
 
-  /* стеклянная плашка внутри тёмного постера */
-  .glass-dark {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(16px) saturate(130%);
-    -webkit-backdrop-filter: blur(16px) saturate(130%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+  /* Сплошная розовая пилюля: главный CTA и бейдж «Главная» */
+  .pill-rose {
+    background: linear-gradient(140deg, #f7cdd1 0%, #efa9b2 52%, #e08e9c 100%);
+    color: #17090e;
   }
 
   .hairline {
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(200, 124, 141, 0.45) 20%,
-      rgba(200, 124, 141, 0.45) 80%,
+      rgba(239, 169, 178, 0.4) 22%,
+      rgba(239, 169, 178, 0.4) 78%,
       transparent
     );
   }
-
 }
 
-/* Блик, пробегающий по постеру при наведении.
+/* Блик, пробегающий по карточке при наведении.
    Вне @layer — составной селектор не должен попасть под purge. */
 .sheen-bar {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: -33%;
-  width: 33%;
+  left: -35%;
+  width: 35%;
   opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
 }
 
 .group:hover .sheen-bar {
   opacity: 1;
-  animation: sheen 1.5s var(--ease-silk) forwards;
+  animation: sheen 1.4s var(--ease-silk) forwards;
 }
 
 /* ------------------------------------------------------------------ *
  *  Утилиты
  * ------------------------------------------------------------------ */
 @layer utilities {
-  .layer {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-
   /* Зерно плёнки — держит всю страницу «дорогой» */
   .grain::after {
     content: '';
@@ -116,14 +117,14 @@
     inset: -50%;
     z-index: 60;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.045;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     animation: grain 7s steps(6) infinite;
   }
 }
 
 /* ------------------------------------------------------------------ *
- *  Keyframes — только transform / opacity / filter
+ *  Keyframes — только transform / opacity
  * ------------------------------------------------------------------ */
 @keyframes grain {
   0%,
@@ -144,183 +145,36 @@
   }
 }
 
+@keyframes sheen {
+  0% {
+    transform: translateX(-130%) skewX(-16deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-16deg);
+  }
+}
+
 @keyframes aurora {
   0%,
   100% {
     transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.9;
+    opacity: 0.75;
   }
   50% {
-    transform: translate3d(3%, -4%, 0) scale(1.12);
+    transform: translate3d(2.5%, -3%, 0) scale(1.14);
     opacity: 1;
   }
 }
 
-@keyframes drift {
+@keyframes halo {
   0%,
   100% {
-    transform: translate3d(0, 0, 0);
+    opacity: 0.55;
+    transform: scale(1);
   }
   50% {
-    transform: translate3d(-3%, 2.5%, 0);
-  }
-}
-
-@keyframes floaty {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
-  }
-}
-
-@keyframes spin-slow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes sheen {
-  0% {
-    transform: translateX(-130%) skewX(-18deg);
-  }
-  100% {
-    transform: translateX(240%) skewX(-18deg);
-  }
-}
-
-/* ocean */
-@keyframes caustic {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1.15);
-    opacity: 0.42;
-  }
-  50% {
-    transform: translate3d(-5%, -3%, 0) scale(1.28);
-    opacity: 0.68;
-  }
-}
-@keyframes swim {
-  0% {
-    transform: translate3d(-6%, 0, 0) rotate(-1.5deg);
-  }
-  50% {
-    transform: translate3d(6%, -5%, 0) rotate(1.5deg);
-  }
-  100% {
-    transform: translate3d(-6%, 0, 0) rotate(-1.5deg);
-  }
-}
-@keyframes rise {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.5);
-    opacity: 0;
-  }
-  12% {
-    opacity: 0.65;
-  }
-  100% {
-    transform: translate3d(14px, -260px, 0) scale(1);
-    opacity: 0;
-  }
-}
-
-/* lab */
-@keyframes scan {
-  0% {
-    transform: translateY(-15%);
-    opacity: 0;
-  }
-  15% {
-    opacity: 0.85;
-  }
-  85% {
-    opacity: 0.85;
-  }
-  100% {
-    transform: translateY(420%);
-    opacity: 0;
-  }
-}
-@keyframes pulse-ring {
-  0%,
-  100% {
-    transform: scale(0.92);
-    opacity: 0.35;
-  }
-  50% {
-    transform: scale(1.08);
-    opacity: 0.75;
-  }
-}
-
-/* apartment */
-@keyframes dust {
-  0% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translate3d(-26px, -180px, 0);
-    opacity: 0;
-  }
-}
-
-/* desk */
-@keyframes steam {
-  0% {
-    transform: translate3d(0, 0, 0) scaleX(1);
-    opacity: 0;
-  }
-  25% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translate3d(10px, -70px, 0) scaleX(1.6);
-    opacity: 0;
-  }
-}
-
-/* city */
-@keyframes bokeh {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.5;
-  }
-  50% {
-    transform: translate3d(12px, -18px, 0) scale(1.18);
     opacity: 0.9;
-  }
-}
-@keyframes streak {
-  0% {
-    transform: translateX(-40%);
-    opacity: 0;
-  }
-  30% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translateX(160%);
-    opacity: 0;
-  }
-}
-
-/* moodboard */
-@keyframes sway {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(var(--tilt, 0deg));
-  }
-  50% {
-    transform: translate3d(0, -8px, 0) rotate(calc(var(--tilt, 0deg) + 1.5deg));
+    transform: scale(1.04);
   }
 }
 
