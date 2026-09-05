@@ -43,14 +43,14 @@ export default function Hero() {
         </motion.div>
       )}
 
-      <div className="relative flex items-start gap-4 xs:gap-5 sm:gap-7 lg:gap-9">
+      <div className="relative flex items-start gap-4 min-[420px]:gap-5 sm:gap-7 lg:gap-9">
         {/* Круглое фото с розовым кольцом и мягким свечением */}
         <motion.div variants={textUp} className="relative shrink-0">
           <div
             className="absolute -inset-2 rounded-full blur-md sm:-inset-3"
             style={{
               background: 'radial-gradient(circle, rgba(239,169,178,0.45) 0%, rgba(239,169,178,0) 68%)',
-              animation: 'halo 7s var(--ease-silk) infinite',
+              animation: 'v1-halo 7s var(--v1-ease-silk) infinite',
             }}
           />
           <div
@@ -64,10 +64,10 @@ export default function Hero() {
                 width="760"
                 height="760"
                 decoding="async"
-                className="block h-[92px] w-[92px] rounded-full object-cover xs:h-[104px] xs:w-[104px] sm:h-[150px] sm:w-[150px] lg:h-[124px] lg:w-[124px] 2xl:h-[150px] 2xl:w-[150px]"
+                className="block h-[92px] w-[92px] rounded-full object-cover min-[420px]:h-[104px] min-[420px]:w-[104px] sm:h-[150px] sm:w-[150px] lg:h-[124px] lg:w-[124px] 2xl:h-[150px] 2xl:w-[150px]"
               />
             ) : (
-              <div className="grid h-[92px] w-[92px] place-items-center rounded-full bg-night-soft font-display text-2xl text-rose-200 xs:h-[104px] xs:w-[104px] sm:h-[150px] sm:w-[150px] sm:text-4xl lg:h-[124px] lg:w-[124px] 2xl:h-[150px] 2xl:w-[150px]">
+              <div className="grid h-[92px] w-[92px] place-items-center rounded-full bg-[#0B080C] v1-display text-2xl text-[#F3BEC3] min-[420px]:h-[104px] min-[420px]:w-[104px] sm:h-[150px] sm:w-[150px] sm:text-4xl lg:h-[124px] lg:w-[124px] 2xl:h-[150px] 2xl:w-[150px]">
                 NK
               </div>
             )}
@@ -78,7 +78,7 @@ export default function Hero() {
         <div className="min-w-0 flex-1 lg:max-w-[560px]">
           <motion.h1
             variants={textUp}
-            className="flex items-center font-display text-[30px] leading-none text-rose-200 xs:text-[34px] sm:text-[46px] lg:text-[38px] 2xl:text-[44px]"
+            className="flex items-center v1-display text-[30px] leading-none text-[#F3BEC3] min-[420px]:text-[34px] sm:text-[46px] lg:text-[38px] 2xl:text-[44px]"
           >
             {profile.wordmark}
             <Heart />
@@ -88,7 +88,7 @@ export default function Hero() {
               на телефоне текст течёт сплошным абзацем и не рвётся на огрызки. */}
           <motion.p
             variants={textUp}
-            className="mt-3 text-[13px] font-light leading-[1.55] text-white/85 xs:text-[13.5px] sm:mt-4 sm:text-[15px] lg:mt-2.5 lg:text-[13px] lg:leading-[1.45] 2xl:text-[14.5px] 2xl:leading-[1.5]"
+            className="mt-3 text-[13px] font-light leading-[1.55] text-white/[0.85] min-[420px]:text-[13.5px] sm:mt-4 sm:text-[15px] lg:mt-2.5 lg:text-[13px] lg:leading-[1.45] 2xl:text-[14.5px] 2xl:leading-[1.5]"
           >
             {profile.bio.map((line, i) => (
               <Fragment key={line}>
@@ -105,12 +105,12 @@ export default function Hero() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.4, ease: SILK }}
-              className="pill-rose group inline-flex items-center gap-2.5 rounded-pill px-5 py-2.5 text-[13px] font-medium shadow-glow sm:px-7 sm:py-3 sm:text-[15px] lg:px-6 lg:py-2 lg:text-[13.5px] 2xl:px-7 2xl:py-2.5"
+              className="v1-pill-rose group inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 text-[13px] font-medium v1-shadow-glow sm:px-7 sm:py-3 sm:text-[15px] lg:px-6 lg:py-2 lg:text-[13.5px] 2xl:px-7 2xl:py-2.5"
             >
               {profile.ctaLabel}
               <svg
                 viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 transition-transform duration-500 ease-silk group-hover:translate-y-0.5"
+                className="h-3.5 w-3.5 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0.5"
                 aria-hidden="true"
               >
                 <path

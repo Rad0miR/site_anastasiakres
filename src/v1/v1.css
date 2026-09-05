@@ -1,0 +1,207 @@
+/* ==================================================================== *
+ *  Оформление первой версии сайта. ЗАМОРОЖЕНО.
+ *
+ *  Здесь лежит всё, что делает /v1 таким, какой он есть: токены,
+ *  шрифты, компонентные классы, keyframes. Файл ничего не берёт из
+ *  tailwind.config.js и ни с чем не пересекается:
+ *
+ *    • все имена классов и keyframes начинаются с v1-
+ *    • все глобальные правила ограничены классом .v1 на <html>,
+ *      который выставляет сам V1App
+ *
+ *  Работая над новым сайтом, этот файл трогать не нужно.
+ * ==================================================================== */
+
+html.v1 {
+  --v1-night: #060407;
+  --v1-night-soft: #0b080c;
+  --v1-rose-100: #fbd9dc;
+  --v1-rose-200: #f3bec3;
+  --v1-rose-300: #efa9b2;
+  --v1-rose-500: #c8788a;
+
+  --v1-ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Затемнение под текстом карточки: слева почти чёрное, справа прозрачное */
+  --v1-card-scrim: linear-gradient(
+      95deg,
+      rgba(6, 4, 7, 0.95) 0%,
+      rgba(6, 4, 7, 0.9) 24%,
+      rgba(6, 4, 7, 0.66) 43%,
+      rgba(6, 4, 7, 0.28) 61%,
+      rgba(6, 4, 7, 0.06) 78%,
+      rgba(6, 4, 7, 0) 92%
+    ),
+    linear-gradient(180deg, rgba(6, 4, 7, 0.34) 0%, rgba(6, 4, 7, 0) 26%, rgba(6, 4, 7, 0) 62%, rgba(6, 4, 7, 0.5) 100%);
+
+  background: var(--v1-night);
+}
+
+/* Шрифт и фон задаются явно, а не через preflight: так смена
+   fontFamily.sans в общем конфиге не заденет эту версию. */
+html.v1 body {
+  background: var(--v1-night);
+  color: #ffffff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.v1 ::selection {
+  background: var(--v1-rose-300);
+  color: var(--v1-night);
+}
+
+html.v1 ::-webkit-scrollbar {
+  width: 9px;
+}
+html.v1 ::-webkit-scrollbar-track {
+  background: var(--v1-night);
+}
+html.v1 ::-webkit-scrollbar-thumb {
+  background: rgba(239, 169, 178, 0.26);
+  border-radius: 999px;
+}
+
+/* -------------------------------------------------------------- *
+ *  Шрифтовые начертания
+ * -------------------------------------------------------------- */
+.v1-display {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.v1-script {
+  font-family: 'Marck Script', cursive;
+}
+
+/* -------------------------------------------------------------- *
+ *  Тени
+ * -------------------------------------------------------------- */
+.v1-shadow-card {
+  box-shadow: 0 24px 60px -32px rgba(0, 0, 0, 0.9);
+}
+
+.v1-shadow-card:hover {
+  box-shadow:
+    0 34px 70px -30px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(239, 169, 178, 0.28);
+}
+
+.v1-shadow-glow {
+  box-shadow: 0 0 44px -6px rgba(239, 169, 178, 0.55);
+}
+
+/* -------------------------------------------------------------- *
+ *  Пилюли. Наведение описано здесь же, а не утилитами Tailwind:
+ *  иначе результат зависел бы от порядка стилей в общем бандле.
+ * -------------------------------------------------------------- */
+.v1-pill-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(239, 169, 178, 0.42);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+}
+
+/* «Про меня» в шапке — пилюля наводится сама */
+.v1-pill-glass:hover {
+  border-color: rgba(239, 169, 178, 0.7);
+}
+
+/* «Перейти» в карточке — реагирует на наведение всей карточки */
+.group:hover .v1-pill-glass {
+  border-color: rgba(239, 169, 178, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.v1-pill-rose {
+  background: linear-gradient(140deg, #f7cdd1 0%, #efa9b2 52%, #e08e9c 100%);
+  color: #17090e;
+}
+
+/* -------------------------------------------------------------- *
+ *  Блик, пробегающий по карточке при наведении
+ * -------------------------------------------------------------- */
+.v1-sheen-bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 35%;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
+}
+
+.group:hover .v1-sheen-bar {
+  opacity: 1;
+  animation: v1-sheen 1.4s var(--v1-ease-silk) forwards;
+}
+
+/* -------------------------------------------------------------- *
+ *  Зерно плёнки — держит всю страницу «дорогой»
+ * -------------------------------------------------------------- */
+.v1-grain::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: v1-grain 7s steps(6) infinite;
+}
+
+/* -------------------------------------------------------------- *
+ *  Keyframes — только transform / opacity
+ * -------------------------------------------------------------- */
+@keyframes v1-grain {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-4%, 3%);
+  }
+  40% {
+    transform: translate(3%, -4%);
+  }
+  60% {
+    transform: translate(-3%, -3%);
+  }
+  80% {
+    transform: translate(4%, 2%);
+  }
+}
+
+@keyframes v1-sheen {
+  0% {
+    transform: translateX(-130%) skewX(-16deg);
+  }
+  100% {
+    transform: translateX(300%) skewX(-16deg);
+  }
+}
+
+@keyframes v1-aurora {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate3d(2.5%, -3%, 0) scale(1.14);
+    opacity: 1;
+  }
+}
+
+@keyframes v1-halo {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.04);
+  }
+}

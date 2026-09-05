@@ -5,7 +5,7 @@
  * Файл ищется по имени без расширения, поэтому можно положить
  * youtube.webp, youtube.jpg или youtube.png — код менять не нужно.
  */
-const modules = import.meta.glob('../assets/images/**/*.{webp,avif,png,jpg,jpeg,svg}', {
+const modules = import.meta.glob('../../assets/images/**/*.{webp,avif,png,jpg,jpeg,svg}', {
   eager: true,
   query: '?url',
   import: 'default',

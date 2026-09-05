@@ -13,14 +13,14 @@ function Backdrop() {
         className="absolute -right-[14%] -top-[18%] h-[58vmax] w-[58vmax] rounded-full blur-[120px]"
         style={{
           background: 'radial-gradient(circle, rgba(200,120,138,0.22) 0%, rgba(200,120,138,0) 68%)',
-          animation: 'aurora 26s var(--ease-silk) infinite',
+          animation: 'v1-aurora 26s var(--v1-ease-silk) infinite',
         }}
       />
       <div
         className="absolute -left-[20%] top-[46%] h-[52vmax] w-[52vmax] rounded-full blur-[130px]"
         style={{
           background: 'radial-gradient(circle, rgba(142,85,102,0.18) 0%, rgba(142,85,102,0) 70%)',
-          animation: 'aurora 33s var(--ease-silk) 5s infinite',
+          animation: 'v1-aurora 33s var(--v1-ease-silk) 5s infinite',
         }}
       />
     </div>
