@@ -10,8 +10,9 @@ const src = getImage('finale')
  * Нижняя часть сайта: закат во всю ширину и главная фраза поверх него.
  *
  * Картинка светлая, поэтому текст здесь тёмный — единственное место
- * на сайте, где так. Чтобы буквы не спорили с солнцем в центре кадра,
- * под ними лежит едва заметная светлая дымка.
+ * на сайте, где так. Но светлая она не везде: надпись пересекает и
+ * солнце, и робота, и кота. Читаемость держат два слоя — светлая дымка
+ * под текстом и ореол вокруг самих букв.
  */
 export default function Finale() {
   const { title, subtitle, notes } = content.finale
@@ -23,6 +24,10 @@ export default function Finale() {
       {...revealOnScroll}
       className="relative isolate w-full overflow-hidden bg-wine-deep"
     >
+      {/* Кадр очень широкий, и всё главное — робот с котом — стоит у правого
+          края. Поэтому на узком экране картинка прижата вправо: пусть слева
+          уходит пустой залив, но кот остаётся целиком. К широкому экрану
+          помещается уже всё, и снимок возвращается в центр. */}
       {src && (
         <img
           src={src}
@@ -30,17 +35,22 @@ export default function Finale() {
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-[64%_center] sm:object-center"
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-[88%_center] sm:object-[72%_center] lg:object-center"
         />
       )}
 
-      {/* Дымка под текстом + мягкий стык с тёмными секциями сверху и снизу */}
+      {/* Дымка под текстом + мягкий стык с тёмными секциями сверху и снизу.
+          Текст стоит ровно по центру кадра — там же и центр дымки. Радиусы
+          заданы длинами, а не процентами: доля кадра, которую занимает
+          надпись, на телефоне и на широком экране разная (пропорции секции
+          меняются от 4/3 до 2135/736), а сама надпись растёт вместе с vw —
+          вместе с ней растёт и пятно. */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
         style={{
           background:
-            'radial-gradient(70% 90% at 34% 46%, rgba(255,248,245,0.42) 0%, rgba(255,248,245,0) 62%),' +
+            'radial-gradient(clamp(210px,24vw,480px) clamp(120px,12vw,210px) at 50% 50%, rgba(255,248,245,0.44) 0%, rgba(255,248,245,0.22) 50%, rgba(255,248,245,0) 80%),' +
             'linear-gradient(to bottom, rgba(23,16,16,0.5) 0%, rgba(23,16,16,0) 22%, rgba(23,16,16,0) 76%, rgba(12,8,8,0.55) 100%)',
         }}
       />
@@ -52,7 +62,18 @@ export default function Finale() {
           className="absolute left-4 top-1/2 -translate-y-1/2 text-[clamp(18px,3.4vw,30px)] sm:left-10 lg:left-[6%]"
         />
 
-        <motion.div variants={textUp} className="text-center">
+        {/* Светлый ореол вокруг букв — тот же приём, что у рукописных
+            пометок (ScriptNote, tone="dark"). Он держит надпись читаемой
+            там, где под ней тёмное: козырёк робота, рука, кот. Одной
+            дымки для этого мало, а поднимать её до нужной плотности
+            значило бы затянуть закат молоком. */}
+        <motion.div
+          variants={textUp}
+          className="text-center"
+          style={{
+            textShadow: '0 0 10px rgba(255,248,245,0.95), 0 0 26px rgba(255,248,245,0.7)',
+          }}
+        >
           <h2
             id="finale-title"
             className="font-display text-[clamp(23px,2.6vw,48px)] font-light uppercase leading-[1.08] tracking-[0.12em] text-[#2A1E1C]"

@@ -25,23 +25,41 @@ import { SILK, revealOnScroll, stagger, textUp } from '../lib/motion'
 export default function ContentStyles({ openId, onToggle }) {
   const panelId = useId()
   const { rail, canPrev, canNext, overflows, scrollByPage } = useCarousel()
-  const panelRef = useRef(null)
+  const boxRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
   const open = styles.find((s) => s.id === openId) ?? null
 
-  /* Подводим раскрытую картинку к глазам. Ждём, пока панель наберёт
-     высоту, иначе браузер прокрутит к ещё пустому месту. */
+  /* Подводим раскрытую картинку к глазам — но не дальше, чем позволяет
+     строка со стилями: она должна остаться на экране, иначе следующий
+     стиль не выбрать, не вернувшись прокруткой вверх. Отсюда две
+     величины и минимум из них:
+
+       wanted — прокрутка, при которой картинка видна целиком;
+       limit  — прокрутка, при которой строка стилей ещё у верхнего края.
+
+     Ждём 280 мс, чтобы страница успела подрасти, но высоту берём не
+     видимую (панель ещё раскрывается), а scrollHeight — итоговую. */
   useEffect(() => {
     if (!openId) return
     const id = setTimeout(() => {
-      panelRef.current?.scrollIntoView({
+      const box = boxRef.current
+      const row = rail.current
+      if (!box || !row) return
+
+      const gap = 14
+      const y = window.scrollY
+      const wanted =
+        y + box.getBoundingClientRect().top + box.scrollHeight + gap - window.innerHeight
+      const limit = y + row.getBoundingClientRect().top - gap
+
+      window.scrollTo({
+        top: Math.max(0, Math.min(wanted, limit)),
         behavior: reduceMotion ? 'auto' : 'smooth',
-        block: 'center',
       })
     }, 280)
     return () => clearTimeout(id)
-  }, [openId, reduceMotion])
+  }, [openId, reduceMotion, rail])
 
   return (
     <motion.section
@@ -101,11 +119,12 @@ export default function ContentStyles({ openId, onToggle }) {
             Обёртка с id живёт всегда, даже когда панели внутри нет:
             на неё ссылаются aria-controls всех одиннадцати кнопок,
             и ссылка не должна вести в пустоту. */}
-        <div id={panelId} ref={panelRef}>
+        <div id={panelId}>
           <AnimatePresence initial={false}>
             {open && (
               <motion.div
                 key="panel"
+                ref={boxRef}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -123,7 +142,7 @@ export default function ContentStyles({ openId, onToggle }) {
                   animate={{ opacity: 1, scaleX: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1, ease: SILK, delay: 0.1 }}
-                  className="k-seam mx-auto mt-5 block h-px w-full max-w-[820px]"
+                  className="k-seam k-style-panel mx-auto mt-5 block h-px"
                 />
 
                 {/*
@@ -135,7 +154,9 @@ export default function ContentStyles({ openId, onToggle }) {
                   время перехода они наложены друг на друга и высота
                   блока не скачет.
                 */}
-                <figure className="mx-auto mt-6 grid w-full max-w-[820px] overflow-hidden rounded-[22px] border border-blush-300/25 shadow-lift">
+                {/* Размер задаёт .k-style-panel: он считается от высоты окна,
+                    чтобы картинка не вытесняла наверх строку карточек. */}
+                <figure className="k-style-panel mx-auto mt-6 grid overflow-hidden rounded-[22px] border border-blush-300/25 shadow-lift">
                   <AnimatePresence>
                     <motion.div
                       key={open.id}
