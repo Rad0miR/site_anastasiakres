@@ -1,24 +1,37 @@
 import { motion } from 'framer-motion'
-import { profile } from '../data/profile'
-import { textUp } from '../lib/motion'
+import Wordmark from './Wordmark'
+import { Heart } from './icons'
+import { content } from '../data/content'
+import { revealOnScroll, stagger, textUp } from '../lib/motion'
 
+/**
+ * Подвал. Логотип и копирайт слева, короткая фраза справа —
+ * на широком экране в одну строку, на телефоне в две.
+ */
 export default function Footer() {
+  const { copyright, tagline } = content.footer
+
   return (
     <motion.footer
-      variants={textUp}
-      className="relative mt-8 shrink-0 pb-6 sm:mt-10 lg:mt-3 lg:flex lg:items-end lg:justify-between lg:gap-8 lg:pb-0"
+      variants={stagger(0.08)}
+      {...revealOnScroll}
+      className="bg-ink-deep px-5 py-8 sm:px-8 lg:px-12"
     >
-      <p className="font-script text-[19px] leading-[1.7] text-rose-300/85 sm:text-[22px] lg:text-[17px] lg:leading-[1.5] 2xl:text-[19px]">
-        {profile.thanks.map((line) => (
-          <span key={line} className="block">
-            {line}
-          </span>
-        ))}
-      </p>
+      <motion.div
+        variants={textUp}
+        className="mx-auto flex w-full max-w-[1560px] flex-col items-center gap-4 text-center sm:flex-row sm:justify-between sm:text-left"
+      >
+        <div className="flex items-center gap-4">
+          <Wordmark className="text-[19px] sm:text-[21px]" />
+          <span aria-hidden="true" className="hidden h-4 w-px bg-ink-line sm:block" />
+          <p className="text-[12px] text-blush-50/50 sm:text-[13px]">{copyright}</p>
+        </div>
 
-      <p className="mt-4 text-center text-[11.5px] font-light text-white/45 sm:mt-5 sm:text-[12.5px] lg:mt-0 lg:text-right lg:text-[11.5px]">
-        © {new Date().getFullYear()} {profile.copyright}
-      </p>
+        <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-wide text-blush-50/50 sm:text-[12px]">
+          {tagline}
+          <Heart className="h-[13px] w-[13px] shrink-0 text-blush-200/80" />
+        </p>
+      </motion.div>
     </motion.footer>
   )
 }

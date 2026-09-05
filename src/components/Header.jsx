@@ -1,32 +1,36 @@
 import { motion } from 'framer-motion'
-import { profile } from '../data/profile'
-import { textUp } from '../lib/motion'
+import Wordmark from './Wordmark'
+import { Heart } from './icons'
+import { content } from '../data/content'
+import { SILK } from '../lib/motion'
 
-/** Верхняя строка: словесный знак слева, стеклянная пилюля справа. */
+/**
+ * Шапка: логотип слева, «Let’s connect ♡» справа. Больше по ТЗ в ней
+ * ничего нет — главная страница сама и есть портфолио, меню не нужно.
+ *
+ * Лежит поверх фона hero (absolute), а не липнет к верху: на референсе
+ * она часть верхней картинки, а не отдельная панель.
+ */
 export default function Header() {
+  const { connect, connectHref } = content.header
+
   return (
     <motion.header
-      variants={textUp}
-      className="relative z-10 flex shrink-0 items-center justify-between"
+      initial={{ opacity: 0, y: -14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.9, ease: SILK, delay: 0.1 }}
+      className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 lg:px-12 lg:py-7"
     >
-      <a
-        href="#top"
-        className="font-display text-[26px] font-semibold tracking-wordmark text-rose-200 transition-colors duration-500 ease-silk hover:text-rose-100 sm:text-[30px] lg:text-[32px]"
-      >
-        {profile.wordmark}
+      <a href="#top" className="rounded-md" aria-label="Kres AI — back to top">
+        <Wordmark className="text-[22px] sm:text-[26px] lg:text-[30px] 2xl:text-[34px]" />
       </a>
 
       <a
-        href="#links"
-        className="pill-glass group inline-flex items-center gap-2 rounded-pill px-4 py-2 text-[13px] font-light text-white/85 transition-all duration-500 ease-silk hover:border-rose-300/70 hover:text-white sm:px-5 sm:text-sm"
+        href={connectHref}
+        className="k-glass group inline-flex items-center gap-2 rounded-pill border border-blush-100/35 px-4 py-2 text-[12px] font-medium text-blush-50 transition-all duration-500 ease-silk hover:border-blush-200/70 hover:shadow-glow sm:px-5 sm:py-2.5 sm:text-[13.5px] 2xl:text-[15px]"
       >
-        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-rose-300" aria-hidden="true">
-          <path
-            d="M12 2.6l2.72 6.06 6.6.66-4.94 4.44 1.4 6.5L12 16.9l-5.78 3.36 1.4-6.5L2.68 9.32l6.6-.66z"
-            fill="currentColor"
-          />
-        </svg>
-        {profile.aboutLabel}
+        {connect}
+        <Heart className="h-[13px] w-[13px] text-blush-200 transition-transform duration-500 ease-silk group-hover:scale-110" />
       </a>
     </motion.header>
   )

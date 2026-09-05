@@ -2,31 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ------------------------------------------------------------------ *
- *  Токены — сняты с референса
- * ------------------------------------------------------------------ */
-:root {
-  --night: #060407;
-  --night-soft: #0b080c;
-  --rose-100: #fbd9dc;
-  --rose-200: #f3bec3;
-  --rose-300: #efa9b2;
-  --rose-500: #c8788a;
-
-  --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Затемнение под текстом карточки: слева почти чёрное, справа прозрачное */
-  --card-scrim: linear-gradient(
-      95deg,
-      rgba(6, 4, 7, 0.95) 0%,
-      rgba(6, 4, 7, 0.9) 24%,
-      rgba(6, 4, 7, 0.66) 43%,
-      rgba(6, 4, 7, 0.28) 61%,
-      rgba(6, 4, 7, 0.06) 78%,
-      rgba(6, 4, 7, 0) 92%
-    ),
-    linear-gradient(180deg, rgba(6, 4, 7, 0.34) 0%, rgba(6, 4, 7, 0) 26%, rgba(6, 4, 7, 0) 62%, rgba(6, 4, 7, 0.5) 100%);
-}
+/* ==================================================================== *
+ *  Общая база для всех версий сайта.
+ *
+ *  Здесь только то, что не является оформлением: поведение браузера и
+ *  доступность. Палитра, шрифты, тени и компонентные классы принадлежат
+ *  конкретной версии и живут отдельно:
+ *
+ *    /    — новый сайт      → этот файл + tailwind.config.js
+ *    /v1  — первая версия   → src/v1/v1.css (ничего отсюда не берёт)
+ *
+ *  Всё, что добавляется сюда, увидят обе версии — поэтому цветам и
+ *  шрифтам нового дизайна здесь не место.
+ * ==================================================================== */
 
 @layer base {
   * {
@@ -38,149 +26,16 @@
   }
 
   body {
-    @apply bg-night font-sans text-white antialiased;
+    /* Нейтральная подложка до отрисовки. Фон каждая версия красит сама. */
+    background: #000000;
+    color: #ffffff;
     overflow-x: hidden;
   }
-
-  ::selection {
-    background: var(--rose-300);
-    color: var(--night);
-  }
-
-  ::-webkit-scrollbar {
-    width: 9px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--night);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(239, 169, 178, 0.26);
-    border-radius: 999px;
-  }
 }
 
-/* ------------------------------------------------------------------ *
- *  Компоненты
- * ------------------------------------------------------------------ */
-@layer components {
-  /* Стеклянная пилюля: «Про меня», «Перейти» */
-  .pill-glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(239, 169, 178, 0.42);
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
-  }
-
-  /* Сплошная розовая пилюля: главный CTA и бейдж «Главная» */
-  .pill-rose {
-    background: linear-gradient(140deg, #f7cdd1 0%, #efa9b2 52%, #e08e9c 100%);
-    color: #17090e;
-  }
-
-  .hairline {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(239, 169, 178, 0.4) 22%,
-      rgba(239, 169, 178, 0.4) 78%,
-      transparent
-    );
-  }
-}
-
-/* Блик, пробегающий по карточке при наведении.
-   Вне @layer — составной селектор не должен попасть под purge. */
-.sheen-bar {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -35%;
-  width: 35%;
-  opacity: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.13), transparent);
-}
-
-.group:hover .sheen-bar {
-  opacity: 1;
-  animation: sheen 1.4s var(--ease-silk) forwards;
-}
-
-/* ------------------------------------------------------------------ *
- *  Утилиты
- * ------------------------------------------------------------------ */
-@layer utilities {
-  /* Зерно плёнки — держит всю страницу «дорогой» */
-  .grain::after {
-    content: '';
-    position: fixed;
-    inset: -50%;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.045;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    animation: grain 7s steps(6) infinite;
-  }
-}
-
-/* ------------------------------------------------------------------ *
- *  Keyframes — только transform / opacity
- * ------------------------------------------------------------------ */
-@keyframes grain {
-  0%,
-  100% {
-    transform: translate(0, 0);
-  }
-  20% {
-    transform: translate(-4%, 3%);
-  }
-  40% {
-    transform: translate(3%, -4%);
-  }
-  60% {
-    transform: translate(-3%, -3%);
-  }
-  80% {
-    transform: translate(4%, 2%);
-  }
-}
-
-@keyframes sheen {
-  0% {
-    transform: translateX(-130%) skewX(-16deg);
-  }
-  100% {
-    transform: translateX(300%) skewX(-16deg);
-  }
-}
-
-@keyframes aurora {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.75;
-  }
-  50% {
-    transform: translate3d(2.5%, -3%, 0) scale(1.14);
-    opacity: 1;
-  }
-}
-
-@keyframes halo {
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.9;
-    transform: scale(1.04);
-  }
-}
-
-/* ------------------------------------------------------------------ *
- *  Доступность
- * ------------------------------------------------------------------ */
+/* ==================================================================== *
+ *  Доступность — правило общее для обеих версий
+ * ==================================================================== */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
