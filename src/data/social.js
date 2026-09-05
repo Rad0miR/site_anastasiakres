@@ -41,13 +41,12 @@ export const social = [
     id: 'telegram',
     name: 'Telegram',
     icon: 'telegram',
-    // TODO: вставить ссылку на канал — её не было среди присланных.
-    url: '',
+    url: 'https://t.me/kressai',
   },
   {
     id: 'tiktok',
     name: 'TikTok',
     icon: 'tiktok',
-    url: 'https://www.tiktok.com/@anastasiakress?_r=1&_t=ZG-98ZeTli0L6v',
+    url: 'https://www.tiktok.com/@naomi.hol?_r=1',
   },
 ]

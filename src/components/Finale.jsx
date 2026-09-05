@@ -23,6 +23,10 @@ export default function Finale() {
       {...revealOnScroll}
       className="relative isolate w-full overflow-hidden bg-wine-deep"
     >
+      {/* Кадр очень широкий, и всё главное — робот с котом — стоит у правого
+          края. Поэтому на узком экране картинка прижата вправо: пусть слева
+          уходит пустой залив, но кот остаётся целиком. К широкому экрану
+          помещается уже всё, и снимок возвращается в центр. */}
       {src && (
         <img
           src={src}
@@ -30,7 +34,7 @@ export default function Finale() {
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 -z-10 h-full w-full object-cover object-[64%_center] sm:object-center"
+          className="absolute inset-0 -z-10 h-full w-full object-cover object-[88%_center] sm:object-[72%_center] lg:object-center"
         />
       )}
 

@@ -25,9 +25,13 @@ export default function SocialRow() {
       <div className="mx-auto w-full max-w-[1400px]">
         <SectionTitle id="find-me-title">{content.social.title}</SectionTitle>
 
+        {/* Боковая прокрутка обрезает всё, что выходит за строку, — в том
+            числе подъём карточки под курсором. Поэтому у ленты есть
+            вертикальные поля, а верхний отступ на столько же меньше:
+            расстояние до заголовка остаётся прежним. */}
         <motion.ul
           variants={stagger(0.06, 0.1)}
-          className="k-rail mt-7 flex snap-x snap-mandatory gap-2.5 overflow-x-auto pb-1 sm:mt-9"
+          className="k-rail mt-[22px] flex snap-x snap-mandatory gap-2.5 overflow-x-auto py-1.5 sm:mt-[30px]"
         >
           {social.map((item) => (
             <SocialItem key={item.id} item={item} />
