@@ -1,44 +1,46 @@
 /* ==================================================================== *
- *  Оформление нового сайта Kres AI.
+ *  Оформление версии v2 (сайт Kres AI).
  *
  *  Здесь только то, что не выражается утилитами Tailwind: свечения,
  *  градиентные подложки, зерно, скрытие полосы прокрутки. Цвета,
- *  отступы и шрифты — в tailwind.config.js.
+ *  отступы и шрифты — в src/v2/tokens.js.
  *
- *  Все имена классов начинаются с k-, глобальные правила ограничены
- *  классом .k на <html>. Версия /v1 живёт по тем же правилам со своим
- *  префиксом v1-, поэтому две версии физически не пересекаются.
+ *  Всё в этом файле начинается с v2: классы .v2-glass, .v2-grain,
+ *  переменные --v2-ink, а глобальные правила (фон, шрифт, выделение,
+ *  скроллбар) ограничены классом .v2 на <html> — его выставляет
+ *  src/v2/App.jsx. По тем же правилам живут остальные версии со своими
+ *  префиксами, поэтому пересечься они физически не могут.
  * ==================================================================== */
 
-html.k {
-  --k-ink: #171010;
-  --k-ink-deep: #0c0808;
-  --k-blush: #e9afaf;
-  --k-blush-soft: #f2c9cc;
-  --k-ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+html.v2 {
+  --v2-ink: #171010;
+  --v2-ink-deep: #0c0808;
+  --v2-blush: #e9afaf;
+  --v2-blush-soft: #f2c9cc;
+  --v2-ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html.k body {
-  background: var(--k-ink);
+html.v2 body {
+  background: var(--v2-ink);
   color: #fff8f5;
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-html.k ::selection {
+html.v2 ::selection {
   background: rgba(233, 175, 175, 0.28);
   color: #fff8f5;
 }
 
-html.k ::-webkit-scrollbar {
+html.v2 ::-webkit-scrollbar {
   width: 9px;
   height: 9px;
 }
-html.k ::-webkit-scrollbar-track {
-  background: var(--k-ink-deep);
+html.v2 ::-webkit-scrollbar-track {
+  background: var(--v2-ink-deep);
 }
-html.k ::-webkit-scrollbar-thumb {
+html.v2 ::-webkit-scrollbar-thumb {
   background: rgba(233, 175, 175, 0.22);
   border-radius: 999px;
 }
@@ -49,7 +51,7 @@ html.k ::-webkit-scrollbar-thumb {
 
 /* Тёплое коричнево-бордовое свечение из центра секции: без него ровный
    тёмный фон выглядит плоско, а с ним — как в референсе. */
-.k-warm {
+.v2-warm {
   background:
     radial-gradient(120% 90% at 50% 0%, rgba(90, 47, 44, 0.5) 0%, rgba(23, 16, 16, 0) 62%),
     radial-gradient(90% 70% at 50% 100%, rgba(59, 34, 32, 0.42) 0%, rgba(23, 16, 16, 0) 60%);
@@ -57,7 +59,7 @@ html.k ::-webkit-scrollbar-thumb {
 
 /* Едва заметное зерно поверх всей страницы — снимает «цифровую» гладкость
    больших тёмных заливок и делает градиенты мягче. */
-.k-grain::after {
+.v2-grain::after {
   content: '';
   position: fixed;
   inset: 0;
@@ -72,12 +74,12 @@ html.k ::-webkit-scrollbar-thumb {
  *  Карусели: полоса прокрутки не нужна, движение остаётся
  * ==================================================================== */
 
-.k-rail {
+.v2-rail {
   scrollbar-width: none;
   -ms-overflow-style: none;
   overscroll-behavior-x: contain;
 }
-.k-rail::-webkit-scrollbar {
+.v2-rail::-webkit-scrollbar {
   display: none;
 }
 
@@ -86,12 +88,12 @@ html.k ::-webkit-scrollbar-thumb {
  * ==================================================================== */
 
 /* Розовое свечение контурных иконок — как на референсе. */
-.k-icon-glow {
+.v2-icon-glow {
   filter: drop-shadow(0 0 7px rgba(233, 175, 175, 0.55));
 }
 
 /* Мягкий ореол под кнопкой Explore. */
-.k-cta-glow {
+.v2-cta-glow {
   box-shadow:
     0 0 0 1px rgba(255, 248, 245, 0.55),
     0 0 34px -4px rgba(242, 201, 204, 0.75),
@@ -99,14 +101,14 @@ html.k ::-webkit-scrollbar-thumb {
 }
 
 /* Стеклянная плашка: шапка, карточки соцсетей, стрелки карусели. */
-.k-glass {
+.v2-glass {
   background: linear-gradient(160deg, rgba(60, 42, 40, 0.55) 0%, rgba(28, 19, 18, 0.62) 100%);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
 
 /* Затемнение снизу карточки стиля, под подписью. */
-.k-card-scrim {
+.v2-card-scrim {
   background: linear-gradient(
     to top,
     rgba(12, 8, 8, 0.94) 0%,
@@ -119,9 +121,9 @@ html.k ::-webkit-scrollbar-thumb {
  *  Заголовок секции с линиями по бокам
  * ==================================================================== */
 
-.k-rule {
+.v2-rule {
   background: linear-gradient(
-    to var(--k-rule-dir, right),
+    to var(--v2-rule-dir, right),
     rgba(233, 175, 175, 0) 0%,
     rgba(233, 175, 175, 0.38) 100%
   );
@@ -142,19 +144,19 @@ html.k ::-webkit-scrollbar-thumb {
  *
  * svh, а не vh: на телефоне высота считается по «свёрнутому» окну,
  * с раскрытой адресной строкой — то есть по худшему случаю. */
-.k-style-panel {
+.v2-style-panel {
   width: 100%;
   max-width: clamp(200px, calc(100svh - 350px), 760px);
 }
 @media (min-width: 640px) {
-  .k-style-panel {
+  .v2-style-panel {
     max-width: clamp(220px, calc(100svh - 420px), 760px);
   }
 }
 
 /* Свет по верхней кромке раскрывшейся панели: подчёркивает, что слой
    именно открылся, а не просто появился. */
-.k-seam {
+.v2-seam {
   background: linear-gradient(
     to right,
     rgba(233, 175, 175, 0) 0%,
@@ -164,7 +166,7 @@ html.k ::-webkit-scrollbar-thumb {
 }
 
 /* Клавиатурный фокус — один на весь сайт. */
-html.k :focus-visible {
+html.v2 :focus-visible {
   outline: 2px solid rgba(242, 201, 204, 0.85);
   outline-offset: 3px;
   border-radius: 4px;

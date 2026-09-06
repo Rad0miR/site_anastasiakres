@@ -11,7 +11,7 @@ const src = getImage('showcase')
  *
  * На референсе здесь широкий кадр с рукописной пометкой справа, но
  * самого файла среди присланных не было. Поэтому секция — слот: пока
- * в src/assets/kres нет файла showcase.* , она не рисуется вовсе и не
+ * в src/v2/assets нет файла showcase.* , она не рисуется вовсе и не
  * оставляет пустой дыры. Появится файл — секция встанет на место сама,
  * трогать код не нужно.
  */
@@ -27,7 +27,7 @@ export default function Showcase() {
     >
       <motion.div
         variants={blurUp}
-        className="relative mx-auto w-full max-w-[1560px] overflow-hidden rounded-[22px] border border-ink-line/70 shadow-lift"
+        className="relative mx-auto w-full max-w-[1560px] overflow-hidden rounded-[22px] border border-v2-ink-line/70 shadow-v2-lift"
       >
         <img
           src={src}

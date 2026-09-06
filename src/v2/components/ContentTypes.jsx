@@ -21,14 +21,14 @@ export default function ContentTypes() {
       aria-labelledby="what-i-create-title"
       variants={stagger(0.07)}
       {...revealOnScroll}
-      className="relative border-y border-ink-line/50 px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14"
+      className="relative border-y border-v2-ink-line/50 px-5 py-10 sm:px-8 sm:py-12 lg:px-12 lg:py-14"
     >
       <div className="mx-auto w-full max-w-[1400px]">
         <SectionTitle id="what-i-create-title">{content.types.title}</SectionTitle>
 
         <motion.ul
           variants={stagger(0.045, 0.1)}
-          className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 xs:grid-cols-3 sm:mt-10 sm:gap-x-6 md:grid-cols-4 xl:grid-cols-6"
+          className="mt-8 grid grid-cols-2 gap-x-4 gap-y-6 v2-xs:grid-cols-3 sm:mt-10 sm:gap-x-6 md:grid-cols-4 xl:grid-cols-6"
         >
           {contentTypes.map((type) => {
             const Icon = typeIcons[type.icon]
@@ -39,9 +39,9 @@ export default function ContentTypes() {
                 className="group flex items-center gap-3 sm:gap-3.5"
               >
                 {Icon && (
-                  <Icon className="k-icon-glow h-[26px] w-[26px] shrink-0 text-blush-100/90 transition-transform duration-700 ease-silk group-hover:scale-110 sm:h-7 sm:w-7" />
+                  <Icon className="v2-icon-glow h-[26px] w-[26px] shrink-0 text-v2-blush-100/90 transition-transform duration-700 ease-v2-silk group-hover:scale-110 sm:h-7 sm:w-7" />
                 )}
-                <span className="text-[12.5px] leading-tight text-blush-50/85 sm:text-[14px]">
+                <span className="text-[12.5px] leading-tight text-v2-blush-50/85 sm:text-[14px]">
                   {type.name}
                 </span>
               </motion.li>

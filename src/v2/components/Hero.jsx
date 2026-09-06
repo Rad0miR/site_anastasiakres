@@ -26,7 +26,7 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[600px] w-full flex-col overflow-hidden bg-ink-deep [height:80svh] max-h-[720px] max-[520px]:min-h-[560px] sm:max-h-none sm:min-h-[560px] sm:[height:auto] sm:[aspect-ratio:16/9] lg:[aspect-ratio:auto] lg:h-[clamp(580px,52vw,860px)]"
+      className="relative isolate flex min-h-[600px] w-full flex-col overflow-hidden bg-v2-ink-deep [height:80svh] max-h-[720px] max-[520px]:min-h-[560px] sm:max-h-none sm:min-h-[560px] sm:[height:auto] sm:[aspect-ratio:16/9] lg:[aspect-ratio:auto] lg:h-[clamp(580px,52vw,860px)]"
     >
       {bg && (
         <motion.img
@@ -71,7 +71,7 @@ export default function Hero() {
         <div className="max-w-[560px] lg:max-w-[680px] 2xl:max-w-[780px]">
           <motion.p
             variants={textUp}
-            className="text-[11px] font-medium uppercase tracking-widest text-blush-100/80 sm:text-[13px] 2xl:text-[15px]"
+            className="text-[11px] font-medium uppercase tracking-v2-widest text-v2-blush-100/80 sm:text-[13px] 2xl:text-[15px]"
           >
             {kicker}
           </motion.p>
@@ -84,14 +84,14 @@ export default function Hero() {
           <motion.p
             variants={textUp}
             aria-hidden="true"
-            className="mt-2 text-[clamp(11px,2.2vw,24px)] font-light uppercase tracking-widest text-blush-50/90 sm:mt-3"
+            className="mt-2 text-[clamp(11px,2.2vw,24px)] font-light uppercase tracking-v2-widest text-v2-blush-50/90 sm:mt-3"
           >
             {tagline}
           </motion.p>
 
           <motion.p
             variants={textUp}
-            className="mt-5 max-w-[420px] 2xl:max-w-[480px] text-[clamp(13px,1.35vw,18px)] leading-[1.65] text-blush-50/75 sm:mt-6"
+            className="mt-5 max-w-[420px] 2xl:max-w-[480px] text-[clamp(13px,1.35vw,18px)] leading-[1.65] text-v2-blush-50/75 sm:mt-6"
           >
             {lead.map((row) => (
               <span key={row} className="block">
@@ -103,10 +103,10 @@ export default function Hero() {
           <motion.div variants={textUp} className="mt-7 sm:mt-8">
             <a
               href={ctaHref}
-              className="k-cta-glow group inline-flex items-center gap-4 rounded-pill bg-gradient-to-b from-blush-100 to-blush-200 px-6 py-3 text-[14px] font-semibold text-wine-deep transition-transform duration-500 ease-silk hover:scale-[1.03] sm:px-8 sm:py-3.5 sm:text-[16px]"
+              className="v2-cta-glow group inline-flex items-center gap-4 rounded-v2-pill bg-gradient-to-b from-v2-blush-100 to-v2-blush-200 px-6 py-3 text-[14px] font-semibold text-v2-wine-deep transition-transform duration-500 ease-v2-silk hover:scale-[1.03] sm:px-8 sm:py-3.5 sm:text-[16px]"
             >
               {cta}
-              <ArrowDown className="h-[18px] w-[18px] transition-transform duration-700 ease-silk group-hover:translate-y-1" />
+              <ArrowDown className="h-[18px] w-[18px] transition-transform duration-700 ease-v2-silk group-hover:translate-y-1" />
             </a>
           </motion.div>
         </div>

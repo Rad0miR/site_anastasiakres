@@ -5,7 +5,7 @@ export const profile = {
   wordmark: 'KRES',
   name: 'Nastya Kres',
 
-  /** Имена файлов в src/assets/images БЕЗ расширения */
+  /** Имена файлов в src/v1/assets БЕЗ расширения */
   avatar: 'avatar',
   decor: 'hero-decor',
 

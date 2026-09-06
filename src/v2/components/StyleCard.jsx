@@ -22,10 +22,10 @@ export default function StyleCard({ style, active, panelId, onSelect }) {
         onClick={() => onSelect(style.id)}
         aria-expanded={active}
         aria-controls={panelId}
-        className={`group relative block aspect-[102/156] w-full overflow-hidden rounded-card border transition-shadow duration-700 ease-silk ${
+        className={`group relative block aspect-[102/156] w-full overflow-hidden rounded-v2-card border transition-shadow duration-700 ease-v2-silk ${
           active
-            ? 'border-transparent shadow-pick'
-            : 'border-ink-line/90 shadow-card hover:border-blush-300/40'
+            ? 'border-transparent shadow-v2-pick'
+            : 'border-v2-ink-line/90 shadow-v2-card hover:border-v2-blush-300/40'
         }`}
       >
         {src ? (
@@ -34,23 +34,23 @@ export default function StyleCard({ style, active, panelId, onSelect }) {
             alt=""
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-[center_28%] transition-transform duration-[1100ms] ease-silk group-hover:scale-[1.06]"
+            className="h-full w-full object-cover object-[center_28%] transition-transform duration-[1100ms] ease-v2-silk group-hover:scale-[1.06]"
           />
         ) : (
           /* Файла ещё нет — карточка остаётся на месте и остаётся кликабельной,
              вёрстка не съезжает. */
-          <span className="block h-full w-full bg-gradient-to-b from-wine to-ink-deep" />
+          <span className="block h-full w-full bg-gradient-to-b from-v2-wine to-v2-ink-deep" />
         )}
 
         {/* Подпись на затемнении внизу карточки */}
         <span
           aria-hidden="true"
-          className="k-card-scrim pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
+          className="v2-card-scrim pointer-events-none absolute inset-x-0 bottom-0 h-1/2"
         />
-        <span className="absolute inset-x-1.5 bottom-1.5 rounded-[10px] bg-ink-deep/55 px-1.5 py-1.5 backdrop-blur-[3px]">
+        <span className="absolute inset-x-1.5 bottom-1.5 rounded-[10px] bg-v2-ink-deep/55 px-1.5 py-1.5 backdrop-blur-[3px]">
           <span
             className={`block text-balance text-center text-[10.5px] font-medium leading-[1.2] transition-colors duration-500 ${
-              active ? 'text-blush-50' : 'text-blush-50/80'
+              active ? 'text-v2-blush-50' : 'text-v2-blush-50/80'
             }`}
           >
             {style.name}
@@ -63,7 +63,7 @@ export default function StyleCard({ style, active, panelId, onSelect }) {
           initial={false}
           animate={{ opacity: active ? 1 : 0 }}
           transition={{ duration: 0.6, ease: SILK }}
-          className="pointer-events-none absolute inset-0 rounded-card ring-1 ring-inset ring-blush-50/70"
+          className="pointer-events-none absolute inset-0 rounded-v2-card ring-1 ring-inset ring-v2-blush-50/70"
         />
       </button>
     </motion.li>

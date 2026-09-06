@@ -1,14 +1,15 @@
 /**
- * Реестр картинок нового сайта.
+ * Реестр картинок версии v2.
  *
- * Vite собирает всё, что лежит в src/assets/kres. Файл ищется по имени
+ * Vite собирает всё, что лежит в src/v2/assets. Файл ищется по имени
  * БЕЗ расширения, поэтому можно положить hero.webp, hero.jpg или hero.png —
  * код менять не нужно.
  *
- * У версии /v1 своя папка (src/assets/images) и свой такой же реестр:
- * версии не делят между собой ни одной картинки и не мешают друг другу.
+ * У каждой версии сайта своя папка с картинками (src/v1/assets,
+ * src/v2/assets, …): версии не делят между собой ни одного файла и
+ * не мешают друг другу.
  */
-const modules = import.meta.glob('../assets/kres/**/*.{webp,avif,png,jpg,jpeg,svg}', {
+const modules = import.meta.glob('../assets/**/*.{webp,avif,png,jpg,jpeg,svg}', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -16,7 +17,7 @@ const modules = import.meta.glob('../assets/kres/**/*.{webp,avif,png,jpg,jpeg,sv
 
 /** { 'hero': '/assets/hero-a1b2.webp', 'style-cinematic': '...' } */
 const registry = Object.entries(modules).reduce((acc, [path, url]) => {
-  const key = path.replace(/^.*\/assets\/kres\//, '').replace(/\.[^./]+$/, '')
+  const key = path.replace(/^.*\/assets\//, '').replace(/\.[^./]+$/, '')
   acc[key] = url
   return acc
 }, {})

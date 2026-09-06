@@ -13,7 +13,7 @@ import { noteIn } from '../lib/motion'
  * иначе он читал бы «Same Girl Bigger Ideas» посреди описания сайта.
  */
 const TONES = {
-  light: { className: 'text-blush-50/85', textShadow: '0 2px 14px rgba(0,0,0,0.55)' },
+  light: { className: 'text-v2-blush-50/85', textShadow: '0 2px 14px rgba(0,0,0,0.55)' },
   dark: { className: 'text-[#2A1614]/80', textShadow: '0 1px 12px rgba(255,248,245,0.6)' },
 }
 
@@ -24,7 +24,7 @@ export default function ScriptNote({ lines, className = '', heart = true, tone =
     <motion.div
       variants={noteIn}
       aria-hidden="true"
-      className={`pointer-events-none select-none font-script leading-[1.15] ${toneClass} ${className}`}
+      className={`pointer-events-none select-none font-v2-script leading-[1.15] ${toneClass} ${className}`}
       style={{ textShadow }}
     >
       {lines.map((line, i) => (

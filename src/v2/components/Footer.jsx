@@ -15,7 +15,7 @@ export default function Footer() {
     <motion.footer
       variants={stagger(0.08)}
       {...revealOnScroll}
-      className="bg-ink-deep px-5 py-8 sm:px-8 lg:px-12"
+      className="bg-v2-ink-deep px-5 py-8 sm:px-8 lg:px-12"
     >
       <motion.div
         variants={textUp}
@@ -23,13 +23,13 @@ export default function Footer() {
       >
         <div className="flex items-center gap-4">
           <Wordmark className="text-[19px] sm:text-[21px]" />
-          <span aria-hidden="true" className="hidden h-4 w-px bg-ink-line sm:block" />
-          <p className="text-[12px] text-blush-50/50 sm:text-[13px]">{copyright}</p>
+          <span aria-hidden="true" className="hidden h-4 w-px bg-v2-ink-line sm:block" />
+          <p className="text-[12px] text-v2-blush-50/50 sm:text-[13px]">{copyright}</p>
         </div>
 
-        <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-wide text-blush-50/50 sm:text-[12px]">
+        <p className="flex items-center gap-2 text-[10.5px] uppercase tracking-v2-wide text-v2-blush-50/50 sm:text-[12px]">
           {tagline}
-          <Heart className="h-[13px] w-[13px] shrink-0 text-blush-200/80" />
+          <Heart className="h-[13px] w-[13px] shrink-0 text-v2-blush-200/80" />
         </p>
       </motion.div>
     </motion.footer>

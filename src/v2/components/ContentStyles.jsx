@@ -67,19 +67,19 @@ export default function ContentStyles({ openId, onToggle }) {
       aria-labelledby="visual-world-title"
       variants={stagger(0.07)}
       {...revealOnScroll}
-      className="k-warm relative px-5 pb-6 pt-11 sm:px-8 sm:pt-14 lg:px-12 lg:pt-16"
+      className="v2-warm relative px-5 pb-6 pt-11 sm:px-8 sm:pt-14 lg:px-12 lg:pt-16"
     >
       <div className="mx-auto w-full max-w-[1560px]">
         <motion.h2
           id="visual-world-title"
           variants={textUp}
-          className="text-center text-[clamp(20px,3.4vw,46px)] font-light uppercase tracking-widest text-blush-50"
+          className="text-center text-[clamp(20px,3.4vw,46px)] font-light uppercase tracking-v2-widest text-v2-blush-50"
         >
           {content.styles.title}
         </motion.h2>
         <motion.p
           variants={textUp}
-          className="mt-2 text-center text-[13px] text-blush-50/65 sm:text-[15px]"
+          className="mt-2 text-center text-[13px] text-v2-blush-50/65 sm:text-[15px]"
         >
           {content.styles.subtitle}
         </motion.p>
@@ -101,7 +101,7 @@ export default function ContentStyles({ openId, onToggle }) {
 
           <ul
             ref={rail}
-            className="k-rail flex snap-x snap-mandatory justify-start gap-2 overflow-x-auto px-1 py-2 xl:justify-center"
+            className="v2-rail flex snap-x snap-mandatory justify-start gap-2 overflow-x-auto px-1 py-2 xl:justify-center"
           >
             {styles.map((style) => (
               <StyleCard
@@ -142,7 +142,7 @@ export default function ContentStyles({ openId, onToggle }) {
                   animate={{ opacity: 1, scaleX: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1, ease: SILK, delay: 0.1 }}
-                  className="k-seam k-style-panel mx-auto mt-5 block h-px"
+                  className="v2-seam v2-style-panel mx-auto mt-5 block h-px"
                 />
 
                 {/*
@@ -154,9 +154,9 @@ export default function ContentStyles({ openId, onToggle }) {
                   время перехода они наложены друг на друга и высота
                   блока не скачет.
                 */}
-                {/* Размер задаёт .k-style-panel: он считается от высоты окна,
+                {/* Размер задаёт .v2-style-panel: он считается от высоты окна,
                     чтобы картинка не вытесняла наверх строку карточек. */}
-                <figure className="k-style-panel mx-auto mt-6 grid overflow-hidden rounded-[22px] border border-blush-300/25 shadow-lift">
+                <figure className="v2-style-panel mx-auto mt-6 grid overflow-hidden rounded-[22px] border border-v2-blush-300/25 shadow-v2-lift">
                   <AnimatePresence>
                     <motion.div
                       key={open.id}
@@ -168,9 +168,9 @@ export default function ContentStyles({ openId, onToggle }) {
                     >
                       <StyleImage style={open} />
                       <figcaption className="pointer-events-none absolute inset-x-0 bottom-0">
-                        <span aria-hidden="true" className="k-card-scrim block h-24 w-full" />
+                        <span aria-hidden="true" className="v2-card-scrim block h-24 w-full" />
                         <span className="absolute inset-x-0 bottom-0 flex justify-center px-5 pb-4">
-                          <span className="text-center text-[13px] font-light uppercase tracking-widest text-blush-50 sm:text-[15px]">
+                          <span className="text-center text-[13px] font-light uppercase tracking-v2-widest text-v2-blush-50 sm:text-[15px]">
                             {open.name}
                           </span>
                         </span>
@@ -189,7 +189,7 @@ export default function ContentStyles({ openId, onToggle }) {
           initial={false}
           animate={{ opacity: open ? 0 : 1 }}
           transition={{ duration: 0.4, ease: SILK }}
-          className="mt-5 text-center text-[12px] tracking-wide text-blush-50/40"
+          className="mt-5 text-center text-[12px] tracking-v2-wide text-v2-blush-50/40"
         >
           {content.styles.hint}
         </motion.p>
@@ -204,8 +204,8 @@ function StyleImage({ style }) {
 
   if (!src) {
     return (
-      <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-wine to-ink-deep">
-        <span className="text-[13px] uppercase tracking-widest text-blush-50/45">{style.name}</span>
+      <div className="flex aspect-square w-full items-center justify-center bg-gradient-to-br from-v2-wine to-v2-ink-deep">
+        <span className="text-[13px] uppercase tracking-v2-widest text-v2-blush-50/45">{style.name}</span>
       </div>
     )
   }
@@ -235,8 +235,8 @@ function RailButton({ side, show, enabled, onClick }) {
       tabIndex={-1}
       aria-hidden="true"
       className={[
-        'k-glass absolute top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center',
-        'rounded-full border border-ink-line text-blush-100 transition-opacity duration-500 ease-silk sm:flex',
+        'v2-glass absolute top-1/2 z-10 hidden h-9 w-9 -translate-y-1/2 items-center justify-center',
+        'rounded-full border border-v2-ink-line text-v2-blush-100 transition-opacity duration-500 ease-v2-silk sm:flex',
         placement,
         show ? '' : 'invisible opacity-0',
         enabled ? 'opacity-90 hover:opacity-100' : 'pointer-events-none opacity-25',

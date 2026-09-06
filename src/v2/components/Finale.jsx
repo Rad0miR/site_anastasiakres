@@ -22,7 +22,7 @@ export default function Finale() {
       aria-labelledby="finale-title"
       variants={stagger(0.09)}
       {...revealOnScroll}
-      className="relative isolate w-full overflow-hidden bg-wine-deep"
+      className="relative isolate w-full overflow-hidden bg-v2-wine-deep"
     >
       {/* Кадр очень широкий, и всё главное — робот с котом — стоит у правого
           края. Поэтому на узком экране картинка прижата вправо: пусть слева
@@ -76,7 +76,7 @@ export default function Finale() {
         >
           <h2
             id="finale-title"
-            className="font-display text-[clamp(23px,2.6vw,48px)] font-light uppercase leading-[1.08] tracking-[0.12em] text-[#2A1E1C]"
+            className="font-v2-display text-[clamp(23px,2.6vw,48px)] font-light uppercase leading-[1.08] tracking-[0.12em] text-[#2A1E1C]"
           >
             {title.map((row) => (
               <span key={row} className="block">
@@ -84,7 +84,7 @@ export default function Finale() {
               </span>
             ))}
           </h2>
-          <p className="mt-3 text-[clamp(9px,1vw,15px)] font-light uppercase tracking-widest text-[#4A3128] sm:mt-4">
+          <p className="mt-3 text-[clamp(9px,1vw,15px)] font-light uppercase tracking-v2-widest text-[#4A3128] sm:mt-4">
             {subtitle}
           </p>
         </motion.div>

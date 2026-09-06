@@ -8,22 +8,24 @@ import Showcase from './components/Showcase'
 import Finale from './components/Finale'
 import Footer from './components/Footer'
 import { SILK } from './lib/motion'
-import './kres.css'
+import './v2.css'
 
 /**
- * Kres AI — главная страница.
+ * Kres AI — главная страница версии v2.
  *
  * Одно длинное полотно, порядок блоков задан ТЗ:
  *
  *   Hero → Social → Content Types → Content Styles → Финальный визуал → Footer
  *
- * Единственное состояние на весь сайт — какой стиль сейчас раскрыт.
+ * Единственное состояние на всю версию — какой стиль сейчас раскрыт.
  * Оно живёт здесь, а не внутри ContentStyles, потому что нужно двоим:
  * самой карусели и нижней части страницы, которая расступается,
  * освобождая место раскрытой картинке.
  *
- * Первая версия сайта живёт в src/v1 и открывается по адресу /v1.
- * Она ничего отсюда не берёт — этот файл можно переписывать целиком.
+ * Версия самостоятельна: своя вёрстка, свои картинки (./assets), своё
+ * оформление (./v2.css) и свои токены Tailwind (./tokens.js). Остальные
+ * версии лежат по соседству — src/v1, src/v3, … — и ничего отсюда не
+ * берут, поэтому этот файл можно переписывать целиком.
  */
 export default function App() {
   const [openId, setOpenId] = useState(null)
@@ -32,8 +34,8 @@ export default function App() {
   // отрисовки, иначе на мгновение мелькнёт чужой фон.
   useLayoutEffect(() => {
     const root = document.documentElement
-    root.classList.add('k')
-    return () => root.classList.remove('k')
+    root.classList.add('v2')
+    return () => root.classList.remove('v2')
   }, [])
 
   /* Повторное нажатие на ту же карточку закрывает панель. */
@@ -42,7 +44,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="k-grain relative bg-ink">
+    <div className="v2-grain relative bg-v2-ink">
       <Hero />
       <SocialRow />
       <ContentTypes />

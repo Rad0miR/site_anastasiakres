@@ -14,9 +14,10 @@ import './v1.css'
  *
  * Всё оформление лежит в ./v1.css и включается классом v1 на <html>,
  * поэтому версия не зависит ни от tailwind.config.js, ни от src/index.css
- * и переживёт любую переработку основного сайта.
+ * и переживёт любую переработку остальных версий. Картинки — свои,
+ * в ./assets. Шрифты подключает src/main.jsx по записи в src/versions.js.
  */
-export default function V1App() {
+export default function App() {
   // useLayoutEffect, а не useEffect: класс должен встать до первой отрисовки,
   // иначе на мгновение мелькнёт чужой фон.
   useLayoutEffect(() => {

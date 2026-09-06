@@ -9,9 +9,9 @@ import { content } from '../data/content'
 export default function Wordmark({ className = '' }) {
   const { first, accent } = content.brand
   return (
-    <span className={`font-sans font-extrabold tracking-wordmark ${className}`}>
-      <span className="text-blush-50">{first}</span>{' '}
-      <span className="text-blush-200">{accent}</span>
+    <span className={`font-v2-sans font-extrabold tracking-v2-wordmark ${className}`}>
+      <span className="text-v2-blush-50">{first}</span>{' '}
+      <span className="text-v2-blush-200">{accent}</span>
     </span>
   )
 }

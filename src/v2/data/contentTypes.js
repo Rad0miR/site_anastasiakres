@@ -2,7 +2,7 @@
  * Одиннадцать категорий блока «WHAT I CREATE».
  *
  * Блок намеренно без картинок: только название и маленькая контурная
- * иконка. Ключ icon берётся из src/components/icons.jsx.
+ * иконка. Ключ icon берётся из src/v2/components/icons.jsx.
  */
 export const contentTypes = [
   { id: 'ai-images', name: 'AI Images', icon: 'image' },

@@ -27,10 +27,10 @@ export default function Header() {
 
       <a
         href={connectHref}
-        className="k-glass group inline-flex items-center gap-2 rounded-pill border border-blush-100/35 px-4 py-2 text-[12px] font-medium text-blush-50 transition-all duration-500 ease-silk hover:border-blush-200/70 hover:shadow-glow sm:px-5 sm:py-2.5 sm:text-[13.5px] 2xl:text-[15px]"
+        className="v2-glass group inline-flex items-center gap-2 rounded-v2-pill border border-v2-blush-100/35 px-4 py-2 text-[12px] font-medium text-v2-blush-50 transition-all duration-500 ease-v2-silk hover:border-v2-blush-200/70 hover:shadow-v2-glow sm:px-5 sm:py-2.5 sm:text-[13.5px] 2xl:text-[15px]"
       >
         {connect}
-        <Heart className="h-[13px] w-[13px] text-blush-200 transition-transform duration-500 ease-silk group-hover:scale-110" />
+        <Heart className="h-[13px] w-[13px] text-v2-blush-200 transition-transform duration-500 ease-v2-silk group-hover:scale-110" />
       </a>
     </motion.header>
   )

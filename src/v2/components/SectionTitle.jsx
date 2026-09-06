@@ -10,19 +10,19 @@ export default function SectionTitle({ children, id }) {
     <motion.div variants={textUp} className="flex items-center justify-center gap-4 sm:gap-6">
       <span
         aria-hidden="true"
-        className="k-rule h-px max-w-[190px] flex-1"
-        style={{ '--k-rule-dir': 'right' }}
+        className="v2-rule h-px max-w-[190px] flex-1"
+        style={{ '--v2-rule-dir': 'right' }}
       />
       <h2
         id={id}
-        className="whitespace-nowrap text-center text-[11px] font-medium uppercase tracking-widest text-blush-100/85 sm:text-[13px]"
+        className="whitespace-nowrap text-center text-[11px] font-medium uppercase tracking-v2-widest text-v2-blush-100/85 sm:text-[13px]"
       >
         {children}
       </h2>
       <span
         aria-hidden="true"
-        className="k-rule h-px max-w-[190px] flex-1"
-        style={{ '--k-rule-dir': 'left' }}
+        className="v2-rule h-px max-w-[190px] flex-1"
+        style={{ '--v2-rule-dir': 'left' }}
       />
     </motion.div>
   )
