@@ -3,8 +3,9 @@
  *
  *   /      — актуальная версия (та, что указана в CURRENT)
  *   /v1    — первая версия, заморожена
- *   /v2    — вторая версия
- *   /v3 …  — все следующие
+ *   /v2    — вторая версия, заморожена
+ *   /v3    — третья версия
+ *   /v4 …  — все следующие
  *
  * Каждая версия живёт в своей папке src/<id>/ и полностью самостоятельна:
  * своя вёрстка, свои картинки (src/<id>/assets), своё оформление
@@ -30,7 +31,7 @@
  */
 
 /** Какая версия открывается на «/». Единственная строка, которую меняет релиз. */
-export const CURRENT = 'v2'
+export const CURRENT = 'v3'
 
 export const versions = [
   {
@@ -51,12 +52,30 @@ export const versions = [
     description:
       'Kres AI — AI creator. Visuals, characters, animation and stories created with AI. Instagram, Threads, Pinterest, Telegram, TikTok.',
     themeColor: '#171010',
-    // Копия строки из index.html: у актуальной версии шрифты подключены
-    // прямо в разметке, чтобы браузер начал их качать, не дожидаясь JS.
-    // Если строки разойдутся, ничего не сломается — просто загрузятся дважды.
     fonts:
       'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap',
     load: () => import('./v2/App.jsx'),
+  },
+  {
+    id: 'v3',
+    // Язык по умолчанию. Дальше его меняет сам посетитель — кнопкой
+    // с глобусом в шапке; выбор запоминается и проставляется в <html lang>.
+    lang: 'en',
+    title: 'Kres AI — Creating worlds with AI',
+    description:
+      'Kres AI — AI creator. Visuals, characters, animation and stories created with AI. Instagram, Threads, Pinterest, Telegram, TikTok.',
+    themeColor: '#171010',
+    // Копия строки из index.html: у актуальной версии шрифты подключены
+    // прямо в разметке, чтобы браузер начал их качать, не дожидаясь JS.
+    // Если строки разойдутся, ничего не сломается — просто загрузятся дважды.
+    //
+    // Manrope здесь ради украинского: в Plus Jakarta Sans кириллицы нет
+    // вовсе, и без пары к ней текст свалился бы на системный шрифт.
+    // Латиницу по-прежнему набирает Jakarta — английский и немецкий
+    // выглядят ровно как раньше.
+    fonts:
+      'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap',
+    load: () => import('./v3/App.jsx'),
   },
 ]
 
@@ -80,7 +99,7 @@ export function currentVersion() {
  *
  * /v1 → v1, /v2 → v2, всё остальное (включая «/» и опечатки) → актуальная.
  * Адрес своей версии работает всегда — и пока она актуальная, и после того
- * как её сменит следующая. Поэтому ссылку на /v2 можно давать хоть сейчас:
+ * как её сменит следующая. Поэтому ссылку на /v3 можно давать хоть сейчас:
  * она не протухнет.
  */
 export function resolveVersion(pathname = window.location.pathname) {
