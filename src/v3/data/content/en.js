@@ -10,8 +10,6 @@
  */
 export default {
   header: {
-    /** Единственный пункт справа. Больше в шапке ничего быть не должно. */
-    connect: 'Let’s connect',
     /** Подписи для скринридера: их не видно, но они читаются вслух. */
     language: 'Choose language',
     backToTop: 'Kres AI — back to top',
@@ -43,6 +41,55 @@ export default {
       topRight: ['Same Girl', 'Bigger Ideas'],
       midRight: ['Good', 'Ideas', 'Brighter', 'Tomorrow'],
     },
+  },
+
+  /**
+   * Форма связи «Let’s connect ♡»: кнопка в шапке, блок под соцсетями
+   * и само окно с тремя полями.
+   *
+   * cta — одна строка на три места (шапка, кнопка под соцсетями,
+   * заголовок окна). Так они не могут разъехаться по формулировке.
+   */
+  connect: {
+    cta: 'Let’s connect',
+
+    /** Приглашение над кнопкой под соцсетями. Каждая строка — с новой. */
+    invite: [
+      'Have a question, an idea, or want to order a project?',
+      'Leave your contacts and tell me a little about what you want to create ♡',
+    ],
+
+    /* Подпись над полем и уточнение в скобках под ней. */
+    fields: {
+      name: {
+        label: 'How should I address you?',
+        hint: '(First name, last name)',
+        placeholder: 'Anastasia Kres',
+      },
+      contact: {
+        label: 'How can I reach you?',
+        hint: '(Telegram username / WhatsApp number)',
+        placeholder: '@username',
+      },
+      message: {
+        label: 'Your question or request',
+        hint: '',
+        placeholder: 'I would like to create…',
+      },
+    },
+
+    /** Кнопка внизу формы. Сердечко рисуется иконкой. */
+    send: 'SEND',
+    sending: 'SENDING…',
+
+    /* Три ответа посетителю. Технических подробностей в них нет и быть
+       не должно: ни ответа Telegram, ни кода ошибки. */
+    success: 'Thank you! Your message has been sent. ♡',
+    error: 'Something went wrong. Please try again.',
+    empty: 'Please fill in all three fields.',
+
+    /** Подпись для скринридера на крестике. */
+    close: 'Close',
   },
 
   social: {
