@@ -3,8 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#171010" />
     <meta name="color-scheme" content="dark" />
+
+    <!--
+      Разметка одна на все версии сайта, а заголовок, описание, цвет строки
+      браузера и шрифты — у каждой версии свои. Здесь стоят значения
+      АКТУАЛЬНОЙ версии: так браузер и поисковик видят их сразу, не дожидаясь
+      JS. Остальным версиям то же самое проставит src/main.jsx по записи
+      в src/versions.js.
+
+      Выпуская новую версию, перенесите сюда её title/description/theme-color,
+      lang у <html> и ссылку на её шрифты — и продублируйте эту же ссылку
+      в поле fonts в src/versions.js.
+    -->
+    <meta name="theme-color" content="#171010" />
 
     <title>Kres AI — Creating worlds with AI</title>
     <meta
@@ -26,13 +38,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!--
-      Два набора шрифтов, по одному на версию сайта. Удалять нельзя ни один:
-
-        Plus Jakarta Sans / Cormorant Garamond / Caveat — новый сайт «/»
-        Inter / Playfair Display / Marck Script        — версия «/v1»
+      Шрифты версии v3: Plus Jakarta Sans / Manrope / Cormorant Garamond / Caveat.
+      Manrope — пара к Jakarta на кириллицу: своей кириллицы у Jakarta нет,
+      и без Manrope украинский текст набирался бы системным шрифтом.
     -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500&family=Caveat:wght@400;500;600&family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;500;600&family=Marck+Script&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500&family=Caveat:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
