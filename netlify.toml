@@ -5,6 +5,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# Серверная часть формы «Let’s connect ♡»: netlify/functions/contact.mjs.
+# Токен бота задаётся в панели Netlify (Environment variables), а не здесь.
+[functions]
+  directory = "netlify/functions"
+
 # Хешированные бандлы Vite можно кэшировать навсегда
 [[headers]]
   for = "/assets/*"
@@ -17,6 +22,13 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     X-Frame-Options = "SAMEORIGIN"
+
+# Форма стучится на /api/contact. Правило стоит ВЫШЕ общего /* — иначе
+# заявка ушла бы в index.html вместо функции.
+[[redirects]]
+  from = "/api/contact"
+  to = "/.netlify/functions/contact"
+  status = 200
 
 [[redirects]]
   from = "/*"

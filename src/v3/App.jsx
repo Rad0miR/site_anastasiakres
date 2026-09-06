@@ -6,7 +6,10 @@ import ContentStyles from './components/ContentStyles'
 import Showcase from './components/Showcase'
 import Finale from './components/Finale'
 import SocialRow from './components/SocialRow'
+import ConnectInvite from './components/ConnectInvite'
+import ConnectDialog from './components/ConnectDialog'
 import Footer from './components/Footer'
+import { ConnectProvider } from './lib/connect'
 import { LanguageProvider } from './lib/language'
 import { SILK } from './lib/motion'
 import './v3.css'
@@ -16,17 +19,20 @@ import './v3.css'
  *
  * Одно длинное полотно:
  *
- *   Hero → Content Types → Content Styles → Social → Финальный визуал → Footer
+ *   Hero → Content Types → Content Styles → Social → Связаться →
+ *   Финальный визуал → Footer
  *
  * Соцсети стоят перед финальной картинкой: посетитель сначала смотрит
  * работы, потом узнаёт, где искать ещё, и только затем страница
- * закрывается общим визуалом.
+ * закрывается общим визуалом. Приглашение написать — сразу за ними:
+ * это середина страницы, до кнопки в шапке отсюда далеко.
  *
- * Состояний на всю версию два. Какой стиль сейчас раскрыт — живёт здесь,
+ * Состояний на всю версию три. Какой стиль сейчас раскрыт — живёт здесь,
  * а не внутри ContentStyles, потому что нужно двоим: самой карусели и
  * нижней части страницы, которая расступается, освобождая место
- * раскрытой картинке. Выбранный язык — в LanguageProvider, он обёрнут
- * вокруг всего: текст нужен каждому блоку.
+ * раскрытой картинке. Выбранный язык — в LanguageProvider, открыта ли
+ * форма связи — в ConnectProvider; оба обёрнуты вокруг всего: текст
+ * нужен каждому блоку, а форму открывают из двух разных мест.
  *
  * Версия самостоятельна: своя вёрстка, свои картинки (./assets), своё
  * оформление (./v3.css) и свои токены Tailwind (./tokens.js). Остальные
@@ -51,19 +57,25 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <div className="v3-grain relative bg-v3-ink">
-        <Hero />
-        <ContentTypes />
-        <ContentStyles openId={openId} onToggle={toggle} />
+      <ConnectProvider>
+        <div className="v3-grain relative bg-v3-ink">
+          <Hero />
+          <ContentTypes />
+          <ContentStyles openId={openId} onToggle={toggle} />
 
-        <LayerBelow trigger={openId}>
-          <Showcase />
-          <SocialRow />
-          <Finale />
-        </LayerBelow>
+          <LayerBelow trigger={openId}>
+            <Showcase />
+            <SocialRow />
+            <ConnectInvite />
+            <Finale />
+          </LayerBelow>
 
-        <Footer />
-      </div>
+          <Footer />
+
+          {/* Окно формы. Пока его не открыли, в разметке ничего нет. */}
+          <ConnectDialog />
+        </div>
+      </ConnectProvider>
     </LanguageProvider>
   )
 }

@@ -8,7 +8,6 @@
  */
 export default {
   header: {
-    connect: 'Vernetzen wir uns',
     language: 'Sprache wählen',
     backToTop: 'Kres AI — nach oben',
   },
@@ -35,6 +34,42 @@ export default {
       topRight: ['Dasselbe Mädchen', 'Größere Ideen'],
       midRight: ['Gute', 'Ideen —', 'helleres', 'Morgen'],
     },
+  },
+
+  connect: {
+    cta: 'Vernetzen wir uns',
+
+    invite: [
+      'Hast du eine Frage, eine Idee oder möchtest du ein Projekt beauftragen?',
+      'Hinterlasse deine Kontaktdaten und erzähl kurz, was du erschaffen möchtest ♡',
+    ],
+
+    fields: {
+      name: {
+        label: 'Wie darf ich dich nennen?',
+        hint: '(Vor- und Nachname)',
+        placeholder: 'Anastasia Kres',
+      },
+      contact: {
+        label: 'Wie kann ich dich erreichen?',
+        hint: '(Telegram-Username / WhatsApp-Nummer)',
+        placeholder: '@username',
+      },
+      message: {
+        label: 'Deine Frage oder Anfrage',
+        hint: '',
+        placeholder: 'Ich möchte gerne … erschaffen',
+      },
+    },
+
+    send: 'SENDEN',
+    sending: 'WIRD GESENDET…',
+
+    success: 'Danke! Deine Nachricht wurde gesendet. ♡',
+    error: 'Etwas ist schiefgelaufen. Bitte versuche es erneut.',
+    empty: 'Bitte fülle alle drei Felder aus.',
+
+    close: 'Schließen',
   },
 
   social: {

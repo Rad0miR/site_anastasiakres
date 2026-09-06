@@ -1,6 +1,15 @@
 name = "anastasia"
 compatibility_date = "2026-08-03"
 
+# Worker отвечает за единственный адрес — /api/contact, серверную часть
+# формы «Let’s connect ♡». Всё остальное отдаёт статика (см. ниже).
+main = "worker/index.js"
+
 [assets]
 directory = "./dist"
+# Через эту привязку worker/index.js отдаёт статику: env.ASSETS.fetch()
+binding = "ASSETS"
 not_found_handling = "single-page-application"
+# Запрос к API уходит в Worker раньше, чем статика успеет ответить на
+# него index.html: /api/* — не файл сайта, а обработчик.
+run_worker_first = ["/api/*"]
