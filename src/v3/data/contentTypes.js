@@ -19,4 +19,5 @@ export const contentTypes = [
   { id: 'product-content', icon: 'cube' },
   { id: 'social-content', icon: 'phone' },
   { id: 'visual-storytelling', icon: 'pencil' },
+  { id: 'video-greetings', icon: 'greeting' },
 ]

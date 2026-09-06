@@ -35,7 +35,7 @@ export default function Header() {
       className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-5 py-5 sm:px-8 sm:py-6 lg:px-12 lg:py-7"
     >
       <a href={`#${ANCHORS.top}`} className="rounded-md" aria-label={text.header.backToTop}>
-        <Wordmark className="text-[22px] sm:text-[26px] lg:text-[30px] 2xl:text-[34px]" />
+        <Wordmark arcs className="text-[22px] sm:text-[26px] lg:text-[30px] 2xl:text-[34px]" />
       </a>
 
       <div className="flex items-center gap-2 sm:gap-2.5">

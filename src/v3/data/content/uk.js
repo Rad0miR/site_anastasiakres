@@ -94,6 +94,7 @@ export default {
       'product-content': 'Продуктовий контент',
       'social-content': 'Контент для соцмереж',
       'visual-storytelling': 'Візуальний сторітелінг',
+      'video-greetings': 'Відео привітання',
     },
   },
 

@@ -3,6 +3,7 @@ import SectionTitle from './SectionTitle'
 import { socialIcons } from './icons'
 import { social } from '../data/social'
 import { ANCHORS } from '../data/anchors'
+import { getImage } from '../lib/images'
 import { useText } from '../lib/language'
 import { revealOnScroll, softIn, stagger } from '../lib/motion'
 
@@ -47,6 +48,7 @@ export default function SocialRow() {
 
 function SocialItem({ item }) {
   const Icon = socialIcons[item.icon]
+  const photo = getImage(item.image)
   /* Вторая строка есть только у двух Instagram — их и различает. */
   const note = useText().social.notes[item.id]
   /* Площадка без ссылки всё равно показывается — просто не кликается.
@@ -59,28 +61,61 @@ function SocialItem({ item }) {
   return (
     <motion.li
       variants={softIn}
-      className="min-w-[104px] flex-1 shrink-0 snap-start lg:min-w-[140px]"
+      className="h-[236px] min-w-[104px] flex-1 shrink-0 snap-start lg:h-[300px] lg:min-w-[140px]"
     >
       <Tag
         {...linkProps}
-        className={`v3-glass group flex h-full flex-col items-center gap-2 rounded-v3-card border border-v3-ink-line/80 px-3 py-4 text-center shadow-v3-tile transition-all duration-500 ease-v3-silk lg:flex-row lg:gap-3 lg:px-4 lg:py-3.5 lg:text-left ${
+        className={`group relative flex h-full flex-col overflow-hidden rounded-v3-card border border-v3-ink-line/80 px-3 pt-4 text-center shadow-v3-tile transition-all duration-500 ease-v3-silk lg:px-4 lg:pt-5 ${
           item.url
             ? 'hover:-translate-y-0.5 hover:border-v3-blush-300/45 hover:shadow-v3-lift'
             : 'cursor-default'
         }`}
       >
-        {Icon && (
-          <Icon className="v3-icon-glow h-7 w-7 shrink-0 text-v3-blush-100 transition-transform duration-500 ease-v3-silk group-hover:scale-105 lg:h-[26px] lg:w-[26px]" />
-        )}
-        <span className="min-w-0">
-          <span className="block truncate text-[13px] font-medium text-v3-blush-50 lg:text-[14px]">
-            {item.name}
-          </span>
-          {note && (
-            <span className="block truncate text-[11.5px] text-v3-blush-50/55 lg:text-[12.5px]">
-              {note}
-            </span>
+        {/* Фотография занимает всю карточку: подложки под иконкой нет,
+            снимок читается целиком. object-bottom — чтобы низ кадра, где
+            и стоит вся сцена, не срезался; сверху обрезается только
+            размытая дымка, которая в этих файлах и так вшита. */}
+        <span className="absolute inset-0">
+          {photo ? (
+            <img
+              src={photo}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover object-bottom transition-transform duration-700 ease-v3-silk group-hover:scale-105"
+            />
+          ) : (
+            <span className="block h-full w-full bg-gradient-to-b from-v3-wine to-v3-ink-deep" />
           )}
+          {/* Размытие идёт по самой фотографии и сходит на нет к нижней
+              строке подписи. Высота в пикселях, а не в процентах: уровень
+              должен совпадать на всех карточках. */}
+          <span
+            aria-hidden="true"
+            className="v3-social-veil pointer-events-none absolute inset-x-0 top-0 h-[112px] lg:h-[128px]"
+          />
+        </span>
+
+        {/* Блик, пробегающий по карточке под курсором, — как в v1. */}
+        <span aria-hidden="true" className="v3-sheen" />
+
+        {/* Иконка и название лежат прямо на фотографии: от неё их отделяют
+            только тёмно-розовая обводка и мягкий ореол (.v3-social-mark,
+            .v3-social-label). Размеры и расположение прежние. */}
+        <span className="relative z-10 flex flex-col items-center gap-2">
+          {Icon && (
+            <Icon className="v3-social-mark h-7 w-7 shrink-0 text-v3-blush-100 lg:h-[26px] lg:w-[26px]" />
+          )}
+          <span className="min-w-0">
+            <span className="v3-social-label block truncate text-[13px] font-medium text-v3-blush-50 lg:text-[14px]">
+              {item.name}
+            </span>
+            {note && (
+              <span className="v3-social-label block truncate text-[11.5px] text-v3-blush-50/55 lg:text-[12.5px]">
+                {note}
+              </span>
+            )}
+          </span>
         </span>
       </Tag>
     </motion.li>

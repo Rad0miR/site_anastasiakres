@@ -120,6 +120,102 @@ html.v3 ::-webkit-scrollbar-thumb {
 }
 
 /* ==================================================================== *
+ *  Карточка соцсети: иконка и название прямо на фотографии
+ * ==================================================================== */
+
+/* Верх карточки размыт прямо по фотографии: отдельной подложки нет,
+   backdrop-filter замыливает сам снимок, а маска сводит размытие на нет
+   к нижнему краю слоя — под второй строкой («Робота», «Особисте»).
+   Высота слоя одна на все шесть карточек, поэтому уровень совпадает.
+   Лёгкая тень в градиенте — только чтобы белый текст не спорил со
+   светлым небом на кадре. */
+.v3-social-veil {
+  backdrop-filter: blur(1.5px) saturate(108%);
+  -webkit-backdrop-filter: blur(1.5px) saturate(108%);
+  background: linear-gradient(
+    to bottom,
+    rgba(23, 16, 16, 0.4) 0%,
+    rgba(23, 16, 16, 0.26) 45%,
+    rgba(23, 16, 16, 0.1) 75%,
+    rgba(23, 16, 16, 0) 100%
+  );
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 42%, transparent 100%);
+}
+
+/* Размытие набирается тремя слоями с разным радиусом и разной длиной
+   маски: снизу работает только самый слабый, кверху к нему добавляются
+   остальные. Поэтому у размытия нет границы — оно нарастает плавно,
+   как градиент. Один слой с маской так не умеет: он гасит не размытие,
+   а прозрачность, и край всё равно виден полосой. */
+.v3-social-veil::before,
+.v3-social-veil::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.v3-social-veil::before {
+  backdrop-filter: blur(3.5px);
+  -webkit-backdrop-filter: blur(3.5px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 26%, transparent 74%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 26%, transparent 74%);
+}
+
+.v3-social-veil::after {
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 48%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 12%, transparent 48%);
+}
+
+/* Иконка площадки: тонкая тёмно-розовая обводка не даёт контуру пропасть
+   на светлом кадре, а широкий мягкий ореол того же оттенка отделяет знак
+   от фотографии. */
+.v3-social-mark {
+  filter: drop-shadow(0 1px 1px rgba(23, 16, 16, 0.85))
+    drop-shadow(0 0 3px rgba(142, 95, 92, 0.95)) drop-shadow(0 0 14px rgba(233, 175, 175, 0.5));
+}
+
+/* То же самое для названия площадки и подписи под ним. */
+.v3-social-label {
+  text-shadow:
+    0 1px 2px rgba(23, 16, 16, 0.9),
+    0 0 4px rgba(142, 95, 92, 0.9),
+    0 0 16px rgba(233, 175, 175, 0.45);
+}
+
+/* Блик, пробегающий по карточке при наведении. Приём взят из первой
+   версии (.v1-sheen-bar): наклонная светлая полоса проходит по кадру
+   один раз и останавливается за краем. */
+.v3-sheen {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -35%;
+  width: 35%;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255, 248, 245, 0.26), transparent);
+}
+
+.group:hover .v3-sheen {
+  opacity: 1;
+  animation: v3-sheen 1.4s var(--v3-ease-silk) forwards;
+}
+
+@keyframes v3-sheen {
+  from {
+    transform: translateX(-130%) skewX(-16deg);
+  }
+  to {
+    transform: translateX(300%) skewX(-16deg);
+  }
+}
+
+/* ==================================================================== *
  *  Заголовок секции с линиями по бокам
  * ==================================================================== */
 
@@ -165,6 +261,172 @@ html.v3 ::-webkit-scrollbar-thumb {
     rgba(255, 248, 245, 0.55) 50%,
     rgba(233, 175, 175, 0) 100%
   );
+}
+
+/* ==================================================================== *
+ *  Логотип «Kres AI»
+ *
+ *  Оформление одно на оба места — в шапке и на первом экране, — потому
+ *  что рисует их один компонент (components/Wordmark.jsx). Все размеры
+ *  здесь в em: и свечение, и орбиты растут вместе со шрифтом, поэтому
+ *  маленький логотип в углу не светится так же широко, как крупный.
+ * ==================================================================== */
+
+/* Буквы набраны «металлом»: узкие светлые и тёмные полосы поперёк
+   штриха читаются как отражения на полированной поверхности. Отсюда
+   и частые остановки градиента — плавный переход дал бы обычную заливку.
+   «Kres» — белое серебро с тёплым подтоном. */
+.v3-wordmark-kres {
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #fdf6fa 14%,
+    #ffffff 27%,
+    #ddd3dd 43%,
+    #ffffff 53%,
+    #fbeef5 63%,
+    #cbbccb 79%,
+    #fff4fa 92%,
+    #f3d8e8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* «AI» — тот же металл, но розовый: акцент всей надписи. */
+.v3-wordmark-ai {
+  background-image: linear-gradient(
+    180deg,
+    #fff0f8 0%,
+    #ffaadb 16%,
+    #ffe4f4 30%,
+    #ee66b4 47%,
+    #ffc9e7 58%,
+    #ff9ed6 68%,
+    #d9489a 83%,
+    #ffd7ef 94%,
+    #f58bc6 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Свечение вокруг надписи — приглушённое: подсветить металл, но не
+   размывать его. Не text-shadow: под background-clip: text он лёг бы
+   поверх самих букв и замылил градиент. */
+.v3-wordmark-glow {
+  filter: drop-shadow(0 0 0.03em rgba(255, 245, 250, 0.3))
+    drop-shadow(0 0 0.1em rgba(244, 124, 190, 0.32))
+    drop-shadow(0 0 0.3em rgba(228, 81, 159, 0.2));
+}
+
+/* -------------------------------------------------------------- *
+ *  Орбиты вокруг крупного логотипа
+ *
+ *  Два одинаковых слоя: один под буквами, другой над ними. Маски у них
+ *  взаимно дополняющие, поэтому левый край орбиты проходит перед
+ *  текстом, а весь остальной круг — за ним, и ни один участок линии
+ *  не рисуется дважды.
+ * -------------------------------------------------------------- */
+
+/* Ширина в em подобрана так, чтобы дуги не упирались в левый край экрана:
+   надпись занимает около 3.35em, а поля первого экрана — от 20 до 48 px
+   при кегле от 52 до 152 px. Высота — так, чтобы нижний пробег проходил
+   сразу под буквами и не доставал до строки под логотипом. */
+.v3-orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3.95em;
+  height: 1.2em;
+  transform: translate(-50%, -56%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.v3-orbit--back {
+  z-index: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent 14%, #000 30%);
+  mask-image: linear-gradient(to right, transparent 14%, #000 30%);
+}
+
+.v3-orbit--front {
+  z-index: 20;
+  -webkit-mask-image: linear-gradient(to right, #000 14%, transparent 30%);
+  mask-image: linear-gradient(to right, #000 14%, transparent 30%);
+}
+
+/* Линия дуги: цвет задаёт градиент в самой разметке, здесь — толщина,
+   скруглённые концы и розовое свечение вокруг штриха. */
+.v3-arc {
+  fill: none;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 2.5px rgba(232, 106, 169, 0.75));
+  animation: v3-arc-breathe 7s ease-in-out infinite;
+}
+
+/* Яркий пробег — чуть плотнее и светится сильнее остальных. */
+.v3-arc--sweep {
+  stroke-width: 1.5;
+  filter: drop-shadow(0 0 3px rgba(255, 158, 212, 0.9))
+    drop-shadow(0 0 9px rgba(232, 106, 169, 0.55));
+}
+
+.v3-arc--inner {
+  stroke-width: 0.85;
+  opacity: 0.6;
+  animation-duration: 9.5s;
+  animation-direction: reverse;
+}
+
+/* Искра на конце яркой дуги — как на референсе. */
+.v3-arc-spark {
+  fill: rgba(255, 238, 248, 0.95);
+  transform-box: fill-box;
+  transform-origin: center;
+  filter: drop-shadow(0 0 3px rgba(255, 158, 212, 0.95))
+    drop-shadow(0 0 8px rgba(232, 106, 169, 0.7));
+  animation: v3-orbit-twinkle 4.6s ease-in-out infinite;
+}
+
+/* Дуги едва заметно «дышат»: линия живая, но рисунок остаётся тем же. */
+@keyframes v3-arc-breathe {
+  0%,
+  100% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes v3-orbit-twinkle {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+}
+
+/* Системная настройка «уменьшить движение» гасит всё бегущее: блик
+   карточки, свет по орбите и мерцание искры. */
+@media (prefers-reduced-motion: reduce) {
+  .group:hover .v3-sheen {
+    opacity: 0;
+    animation: none;
+  }
+
+  .v3-arc,
+  .v3-arc-spark {
+    animation: none;
+  }
 }
 
 /* Клавиатурный фокус — один на весь сайт. */

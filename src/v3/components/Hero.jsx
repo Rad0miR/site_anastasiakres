@@ -92,7 +92,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.h1 variants={textUp} className="mt-2 sm:mt-3">
-            <Wordmark className="block text-[clamp(52px,11vw,152px)] leading-[0.92]" />
+            <Wordmark arcs className="block text-[clamp(52px,11vw,152px)] leading-[0.92]" />
             <span className="sr-only">— {tagline}</span>
           </motion.h1>
 

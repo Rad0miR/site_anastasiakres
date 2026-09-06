@@ -94,6 +94,7 @@ export default {
       'product-content': 'Produkt-Content',
       'social-content': 'Social-Media-Content',
       'visual-storytelling': 'Visuelles Storytelling',
+      'video-greetings': 'Videogrüße',
     },
   },
 

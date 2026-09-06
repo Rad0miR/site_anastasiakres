@@ -117,6 +117,7 @@ export default {
       'product-content': 'Product Content',
       'social-content': 'Social Media Content',
       'visual-storytelling': 'Visual Storytelling',
+      'video-greetings': 'Video Greetings',
     },
   },
 
